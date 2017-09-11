@@ -1,14 +1,14 @@
 {
-  "name": "understrap-child",
+  "name": "mdb_us4c",
   "version": "0.3.5",
-  "description": "Basic Child Theme for UnderStrap Theme Framework: https://github.com/holger1411/understrap",
+  "description": "Martina Dal Brollo Child Theme for UnderStrap Theme Framework: https://github.com/holger1411/understrap",
   "main": "index.js",
   "scripts": {
     "postinstall": "gulp copy-assets"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/holger1411/understrap-child.git"
+    "url": "https://github.com/gagarcr/mdb_us4c.git"
   },
     "keywords": [
     "wordpress",
@@ -18,10 +18,10 @@
     "underscores"
   ],
 
-  "author": "Holger Koenemann",
+  "author": "Gabriel Garcia",
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/holger1411/understrap-child/issues"
+    "url": "https://github.com/gagarcr/mdb_us4c/issues"
   },
   "homepage": "https://understrap.com",
   "dependencies": {
@@ -50,7 +50,9 @@
     "popper.js": "^1.11.1",
     "run-sequence": "^2.0.0",
     "undescores-for-npm": "^1.0.0",
-    "understrap": "^0.6.5"
+    "understrap": "^0.6.5",
+    "isotope-layout": "^3.0.4",
+    "barba.js" : "^1.0.0"
   }
     
 }

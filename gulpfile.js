@@ -248,6 +248,21 @@ gulp.task('copy-assets', function() {
 
     gulp.src(basePaths.node + 'popper.js/dist/umd/popper.js')
         .pipe(gulp.dest(basePaths.js));
+
+// Copy Isotope Layout files
+    gulp.src(basePaths.node + 'isotope-layout/dist/*.js')
+        .pipe(gulp.dest(basePaths.js));
+
+// Copy imagesLoaded files
+    gulp.src(basePaths.node + 'imagesloaded/imagesloaded.pkgd*.js')
+        .pipe(gulp.dest(basePaths.js));
+
+// Copy Barba.js files
+    gulp.src(basePaths.node + 'barba.js/dist/*.js')
+        .pipe(gulp.dest(basePaths.js));
+
+        
+
 });
 
 // Run

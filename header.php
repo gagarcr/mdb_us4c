@@ -23,17 +23,26 @@ $container = get_theme_mod( 'understrap_container_type' );
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> id="mdb_us4c-body">
+
+<svg class="hideSvgSoThatItSupportsFirefox">
+  <filter id="sharpBlur">
+    <feGaussianBlur stdDeviation="30"></feGaussianBlur>
+    <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 9 0"></feColorMatrix>
+    <feComposite in2="SourceGraphic" operator="in"></feComposite>
+  </filter>
+</svg>
 
 <style>
 .parallax { 
-   min-height: 200px;
-   height: 60vh; /* 60% of viewport height */
-       margin: 0;
+    min-height: 200px;
+    height: 60vh; /* 60% of viewport height */
+    margin: 0;
     padding: 0;
-   /*max-height: 800px;*/
-overflow: hidden;
-position: relative;
+    /*max-height: 800px;*/
+	overflow: hidden;
+	position: relative;
+	z-index: -1;
 } 
 
 .parallax::before {
@@ -46,11 +55,10 @@ position: relative;
     position: fixed;
     top:0;
     left:0;
-    background: url('<?php echo( get_header_image() );?>') no-repeat bottom center;
+    background: url('<?php echo( get_header_image() );?>') no-repeat top center;
     background-size: cover;
     z-index: -1;
-       will-change: transform; /* creates a new paint layer */
-
+    will-change: transform; /* creates a new paint layer */
 }
 h1 {
 }
@@ -68,17 +76,27 @@ h2.responsive-text{
     margin-bottom: 40px;
     text-transform:  uppercase;
     color: white;
-    text-align: center;
+    //text-align: center;
 }
 .container-fluid{
-    margin: 0;
-    padding: 0;
+    //margin: 0;
+    //padding: 0;
 }
+
+/* Make the content (below the header) non-transparent
+   so that it hides the header when scrolling */
 .wrapper {
     background-color: white;
 }
 
-/* Vertical Align of child objetcs */
+/* Portfolio filter buttons */
+.navbar-filter {
+	background-color: white;
+	margin-top: 0;
+}
+
+/* Vertical Align of child objetcs.
+   DISABLED: Not required anymore in bootstrap4
 .vertical-align {
     display: flex;  
     align-items: center;
@@ -86,31 +104,64 @@ h2.responsive-text{
     height: 100%;
     flex-direction: column;
 }
-
+*/
 .header-button {
-    margin: 20px;
+    //margin: 20px;
 
 }
 /* Navigation bar */
 .navbar {
-    background: white;
+    //background: white;
 }
 .mdb_nav {
-    display: flex;
+    //display: flex;
 }
 </style>
 
-<div id="barba-wrapper">
 
+<div id="barba-wrapper">
 	<?php 
-	function get_current_template() {
-	global $template;
-	return basename($template, '.php');
-	}
+		function get_current_template() {
+		global $template;
+		return basename($template, '.php');
+		}
 	?>
+	<!-- Barba namespace -->
 	<div data-namespace="<?php echo get_current_template() ?>" <?php body_class('barba-container') ?> >
 
 		<div class="hfeed site" id="page">
+			<div class="d-none">
+				<?php if ( 'container' == $container ) : ?>
+					<div class="container">
+				<?php endif; ?>
+
+					<h1 class="title responsive-text mt-1 mr-3 text-right text-uppercase"> 
+						<?php
+							$title = get_bloginfo( 'name', 'raw');
+							$title_words = explode(' ', $title);
+							foreach ($title_words as $value)
+							{
+								echo ($value . ".  ");
+							}
+						?>
+					</h1>
+				<?php if ( 'container' == $container ) : ?>
+					</div><!-- .container -->
+				<?php endif; ?>
+			</div>
+
+
+	
+
+			<div class="container-fluid hidden-sm-block visible-md-block visible-lg-block page-header">
+				<div class="parallax">							
+					
+				</div> <!-- parallax -->
+			</div>
+
+
+
+			<?php if (0): ?>
 
 			<!-- ******************* The Navbar Area ******************* -->
 			<div class="wrapper-fluid wrapper-navbar" id="wrapper-navbar">
@@ -139,10 +190,13 @@ h2.responsive-text{
 								
 							
 							<?php } else {
+								//$custom_logo_id = get_theme_mod( 'custom_logo' );
+								//$logo = wp_get_attachment_image_src( $custom_logo_id , 'thumbnail' );
+								//echo '<img src="'. esc_url( $logo[0] ) .'">';
 								the_custom_logo();
 							} ?><!-- end custom logo -->
 
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<button class="navbar-toggler" type="button" data-toggle="collapse-filter" data-target="#navbarNavDropdown-filter" aria-controls="navbarNavDropdown-filter" aria-expanded="false" aria-label="Toggle">
 							<span class="navbar-toggler-icon"></span>
 						</button>
 
@@ -150,8 +204,8 @@ h2.responsive-text{
 						<?php wp_nav_menu(
 							array(
 								'theme_location'  => 'primary',
-								'container_class' => 'collapse navbar-collapse',
-								'container_id'    => 'navbarNavDropdown',
+								'container_class' => 'collapse-filter navbar-collapse',
+								'container_id'    => 'navbarNavDropdown-filter',
 								'menu_class'      => 'navbar-nav',
 								'fallback_cb'     => '',
 								'menu_id'         => 'main-menu',
@@ -165,3 +219,5 @@ h2.responsive-text{
 				</nav><!-- .site-navigation -->
 
 			</div><!-- .wrapper-navbar end -->
+
+			<?php endif; ?>

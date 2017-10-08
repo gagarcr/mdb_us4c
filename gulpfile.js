@@ -10,7 +10,10 @@ var basePaths = {
 var browserSyncWatchFiles = [
     './css/*.min.css',
     './js/*.min.js',
-    './*.php'
+    './*.php',
+    // MDBUS4 SPECIAL
+    './*/*.php', // For loop-templates
+    '.js/mdb_us4.js' //TODO: minify this file
 ];
 // browser-sync options
 // see: https://www.browsersync.io/docs/options/

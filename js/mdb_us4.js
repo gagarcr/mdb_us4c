@@ -33,10 +33,24 @@ function isotopeStart($) {
         }
 
         /* Link filter button with behavior */
-        $('.filter-button-group').on( 'click', 'button', function() {   
-            var filterValue = $(this).attr('data-filter');
-            grid.isotope({ filter: filterValue });
-            console.log("Filter!");
+        $('.filter-button-group').on( 'click', 'a', function() {   
+            // Check if is already active
+            if ($(this).hasClass("active")){
+                $(this).removeClass("active");
+                grid.isotope({ filter: "*" });
+            }
+            else {
+                // Remove the "active" class of the other buttons
+                $('.filter-button-group').find("a.active").each( function () {
+                    $(this).removeClass("active");
+                });
+                // Set to this button
+                $(this).addClass("active");
+                // Get the filter
+                var filterValue = $(this).attr('data-filter');   
+                console.log("Filter: " + filterValue);             
+                grid.isotope({ filter: filterValue });
+            }
         });
 
 

@@ -9,6 +9,7 @@
 
 $container = get_theme_mod( 'understrap_container_type' );
 ?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -34,34 +35,6 @@ $container = get_theme_mod( 'understrap_container_type' );
 </svg>
 
 <style>
-.parallax { 
-    min-height: 200px;
-    height: 60vh; /* 60% of viewport height */
-    margin: 0;
-    padding: 0;
-    /*max-height: 800px;*/
-	overflow: hidden;
-	position: relative;
-	z-index: -1;
-} 
-
-.parallax::before {
-    content: " ";
-    width :100%;
-    min-height: 200px;
-    height: 60vh;
-    margin: 0;
-    padding: 0;
-    position: fixed;
-    top:0;
-    left:0;
-    background: url('<?php echo( get_header_image() );?>') no-repeat top center;
-    background-size: cover;
-    z-index: -1;
-    will-change: transform; /* creates a new paint layer */
-}
-h1 {
-}
 
 
 /* Resposive text */
@@ -116,6 +89,40 @@ h2.responsive-text{
 .mdb_nav {
     //display: flex;
 }
+
+
+
+
+
+
+
+
+
+
+.hideSvgSoThatItSupportsFirefox
+{
+  /* If you use `display: none`, Firefox isn’t able to
+   reference the filter inside the SVG. This avoids
+   the issue by using using .visuallyHidden from the
+   HTML5 Boilerplate.
+   -> https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+  */
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+
+.blur{
+  /* From https://codepen.io/johndjameson/pen/xVjgPy/ */
+  filter: url('#sharpBlur') saturate(200%); /* The radius is defined in <feGaussianBlur stdDeviation="30"> */
+  //filter: blur(30px) saturate(200%);
+}
 </style>
 
 
@@ -130,6 +137,8 @@ h2.responsive-text{
 	<div data-namespace="<?php echo get_current_template() ?>" <?php body_class('barba-container') ?> >
 
 		<div class="hfeed site" id="page">
+
+			<?php if(0): ?>
 			<div class="d-none">
 				<?php if ( 'container' == $container ) : ?>
 					<div class="container">
@@ -148,16 +157,12 @@ h2.responsive-text{
 				<?php if ( 'container' == $container ) : ?>
 					</div><!-- .container -->
 				<?php endif; ?>
-			</div>
+			</div><!-- .d-none -->
+			<?php endif; ?>
 
 
 	
 
-			<div class="container-fluid hidden-sm-block visible-md-block visible-lg-block page-header">
-				<div class="parallax">							
-					
-				</div> <!-- parallax -->
-			</div>
 
 
 
@@ -221,3 +226,6 @@ h2.responsive-text{
 			</div><!-- .wrapper-navbar end -->
 
 			<?php endif; ?>
+
+
+	

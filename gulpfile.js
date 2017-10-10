@@ -12,7 +12,8 @@ var browserSyncWatchFiles = [
     './js/*.min.js',
     './*.php',
     // MDBUS4 SPECIAL
-    './*/*.php', // For loop-templates
+    './loop-templates/*.php', // For loop-templates
+    //'./*/*.php', // For loop-templates
     '.js/mdb_us4.js' //TODO: minify this file
 ];
 // browser-sync options

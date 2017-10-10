@@ -14,8 +14,8 @@ $container = get_theme_mod( 'understrap_container_type' );
 <?php get_sidebar( 'footerfull' ); ?>
 
 
-</div><!-- #page we need this extra closing tag here -->
-</div><!-- #barba-container -->
+        </div><!-- #page we need this extra closing tag here -->
+    </div><!-- .barba-container -->
 </div><!-- #barba-wrapper -->
 
 

@@ -125,15 +125,33 @@ function barbaStart( $ ) {
         onEnter: function() {
             // The new Container is ready and attached to the DOM.
             console.log("Index enter");
-            isotopeStart($);
+
+
+            try {
+                isotopeStart($);
+                console.log("Isotope initialized from barba");
+            }
+            catch(err) {
+                console.log("Could not initilze isotope: " + err);
+            }
+
         },
         onEnterCompleted: function() {
             // The Transition has just finished.
             // We call layout each time a new image is loaded
-            isotopeLayout($);
+            // isotopeLayout($);
+
+            // Scroll to index
+            if (typeof ($scrollHomeValue) !== 'undefined')
+            {
+                console.log("Scrooll to previous index: " + $scrollHomeValue);
+                document.body.scrollTop = $scrollHomeValue;
+            }
         },
         onLeave: function() {
             // A new Transition toward a new page has just started.
+            // Store the scroll index 
+            $scrollHomeValue =  document.body.scrollTop;
         },
         onLeaveCompleted: function() {
             // The Container has just been removed from the DOM.
@@ -173,6 +191,9 @@ function barbaStart( $ ) {
              * Please note, newContainer is available just after newContainerLoading is resolved!
              */
             console.log("Fade In");
+            
+            // Scroll to top. TODO: how to store last scroll index
+            document.body.scrollTop = 0;
 
             var _this = this;
             var $el = $(this.newContainer);
@@ -216,22 +237,32 @@ function barbaStart( $ ) {
  * --------------------------------------------------------------------------
  */
 
+
 /* On document ready, start isotope and then initialize barba.js */
 jQuery(document).ready(function( $ ) {
     /* Start barba.js */
     if (barbaEnabled) { 
         //It's suggested to .init() the Views before calling Pjax.start()
         // In this way Pjax.start() will emit onEnter() and onEnterCompleted() for the current view.
-        barbaStart($);
-            
-        console.log("Barba prefetch init");
+        try {
+            barbaStart($);
+                 
+            console.log("Barba prefetch init");
 
-        Barba.Pjax.start();
-        Barba.Prefetch.init();
-        console.log("Barba start");
+            Barba.Pjax.start();
+            Barba.Prefetch.init();
+            console.log("Barba start");
+        }
+        catch(err) {
+            console.log("Could not initialize Barba: " + err);
+            // Go into fallback functions
+            mdb_us4_fallback( $ );
+        }
     }
     else {
-        isotopeStart($); // isotopeEnable check inside function
+        // Go into fallback functions
+        mdb_us4_fallback( $ );
+       
     }
 }); // End jQuery
     
@@ -244,5 +275,60 @@ jQuery(document).ready(function( $ ) {
 
 // Each time a new page is loaded by PJAX, show a log
 Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {    
-    console.log("New page ready!");           
+    //console.log("New page ready!");      
+    mdb_us4_scrollSmooth( jQuery );
+    
 });
+
+
+// Fallback function that loads everithing done by Barba.js.
+function mdb_us4_fallback ( $ ) {
+    // Start isotope 
+    try {
+        isotopeStart($); // isotopeEnable check inside function
+        console.log("Isotope initialized");
+    }     
+    catch(err) {
+        console.log("Could not initialize isotope: " + err);
+    }
+
+    // Start smooth scroll button (ex: single post arrow)
+    mdb_us4_scrollSmooth( $ );
+}; 
+
+
+
+
+function mdb_us4_scrollSmooth( $ ) {
+    console.log("ScrollSmooth load");
+    $('.scroll-arrow').click(function( event) {
+        console.log("Scroll smooth");
+        var sectionTo = $(this).attr('href');
+
+
+        //sectionTo.animatedScroll({easing: "easeOutExpo"});
+        
+        $('html, body').animate({
+            scrollTop: $(sectionTo).offset().top
+         }, 1000);
+         event.preventDefault();
+    });
+
+};
+
+
+
+( function( $ ) {
+    
+    
+
+
+
+       $( function() { // Ready
+        console.log("this thing loads jquery!");
+
+        
+       } );
+    
+})( jQuery );
+

@@ -8,6 +8,7 @@
 .project-page {
 	min-height: 100vh;
 	//border-bottom: 1px solid black;
+	position: relative; /* Reset x,y coord */
 
 	/* Required to center the <h1> */
 	display:flex;
@@ -17,6 +18,7 @@
 
 	padding-bottom: 4em;
 	padding-top: 4em;
+
 }
 
 
@@ -42,9 +44,46 @@
 
 
  
+a.scroll-arrow {
+    font-size: 35px;
+    color: white;
+    width: 40px;
+	height: 40px;
+    line-height: 35px;
+    border-radius: 50%;
+    border: 0px solid white;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 2em;
+    left: 50%;
+    z-index: 1029;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    opacity: 1;
+	box-sizing: border-box;
+
+
+	text-align: top;
+}
+
+
+a.scroll-arrow i {
+	width: 100%;
+	//height: 100%;
+	//margin: auto;
+	vertical-align:middle;
+	
+}
+
+
 
 
 </style>
+
 <?php
 /**
  * Single post partial template.
@@ -54,17 +93,20 @@
 
 ?>
 <article <?php post_class(''); ?> id="post-<?php the_ID(); ?>">
-	<header class="entry-header project-page project-cover text-center text-white">
+	<header class="entry-header project-page project-cover text-center text-white" id="sectionCover">
 		<?php the_title( '<h1 class="entry-title text-uppercase p-5">', '</h1>' ); ?>
 		<div class="entry-short p-5">
  			<p>
 				<?php the_field('short_description'); ?>
 			</p>
 		</div><!-- .entry-meta -->
+		<a id="cli" href="#sectionTechnical" class="scroll-arrow">
+			<i class="fa fa-angle-down"></i>
+		</a>
 	</header><!-- .entry-header -->
 
 	<!-- Technical description page -->	
-	<div class="project-page project-technical">
+	<div class="project-page project-technical" id="sectionTechnical">
 		<div class="container">
 			<div class="row justify-content-center align-items-center text-justify">
 				<div class="entry-technical text-center text-lg-left col-12 col-lg-3">
@@ -90,7 +132,7 @@
 	</div> <!-- .project-technical -->
 
 	<!-- full description page -->	
-	<div class="project-page project-full-description">
+	<div class="project-page project-full-description" id="sectionDescription">
 		<div class="entry-long container">
 			<div class="row justify-content-center align-items-center text-justify">
 				<div class="col-12 col-lg-8">
@@ -105,7 +147,7 @@
 	</div> <!-- .project-full-description -->
 
 	<!-- Gallery page -->	
-	<div class="project-page project-gallery">
+	<div class="project-page project-gallery" id="sectionGallery">
  		<div class="container">
 			<div class="card-columns">
 				<?php 

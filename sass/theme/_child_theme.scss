@@ -1,0 +1,18 @@
+
+
+
+
+// Adding some contrast background color to footer full widget
+#wrapper-footer-full,
+#wrapper-static-hero { background-color: $gray-800; };
+
+#wrapper-footer-full,
+#wrapper-static-hero { 
+    color: $white; 
+    padding: 0.5em 0; 
+};
+
+a {
+    color: inherit; /* Take color for its parent */
+}
+

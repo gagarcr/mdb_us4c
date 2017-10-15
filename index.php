@@ -127,8 +127,6 @@
 	bottom: 0;
 	right: 0;
 
-	opacity: 1;
-
 	transform: translateY(-100%) translateY(+5em) translateZ(0); /* Move 100% up, the 5 em down */
     //clip: rect(0px,60px,200px,0px);
 	//object-fit: cover;

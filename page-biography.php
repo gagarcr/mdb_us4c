@@ -123,6 +123,11 @@ a.scroll-arrow i {
 	
 }
 
+/* Remove inner year border */
+.table td.td-inner-year {
+  border-top: none;
+}
+
 </style>
 
 <div class="wrapper" id="single-wrapper">
@@ -216,8 +221,12 @@ a.scroll-arrow i {
 																echo '<tr>';
 												
 																	foreach ( $tr as $td ) {
-												
-																		echo '<td>';
+                                    if ($td['c'] == ""):
+                                      echo '<td class="td-inner-year">';
+                                    else:
+                                      echo '<td>';
+                                    endif;
+
 																			echo $td['c'];
 																		echo '</td>';
 																	}

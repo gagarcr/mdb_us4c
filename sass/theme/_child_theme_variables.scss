@@ -12,10 +12,11 @@
 
 // From boostrap 4
 
+
 //
 // Color system
 //
-
+// Defaults
 $white:  #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -67,21 +68,11 @@ $colors: (
   gray-dark: $gray-800
 ) !default;
 
+// Custom
 
 $theme-colors: (
-    primary: black,
-    secondary: #fe0000,
-    success: #fe0000,
-    info: #fe0000,
-    warning: #fe0000,
-    danger:  #fe0000,
-    light: #fe0000,
-    dark: #fe0000
-  );
-  
-$theme-colors: (
-    primary: black,
-    secondary: $gray-600,
+    primary: $gray-900,
+    secondary: $gray-100,
     success: $green,
     info: $cyan,
     warning: $yellow,
@@ -90,3 +81,17 @@ $theme-colors: (
     dark: $gray-800
 );
 
+
+
+/* Customize link decoration */
+//$link-color:            inherit;
+//$link-decoration:       none;
+//$link-hover-color:     none;
+//$link-hover-decoration: white;
+
+
+$nav-link-disabled-color:       $light;
+
+
+//$nav-pills-link-active-color: map-get($theme-colors, info) ;
+//$nav-pills-link-active-bg:  white;

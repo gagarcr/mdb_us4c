@@ -16,6 +16,8 @@ $container   = 'container-fluid';
 $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 
 ?>
+
+
 <style>
 * {
 	//background-color: rgba(10,220,320,0.2);
@@ -63,18 +65,36 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 
 	/* Required to center the <h1> */
 	display:flex;
-    align-items: center; /* Vertical */
-    justify-content: center; /* Horinzontal */
-	flex-direction: row;
+  align-items: center; /* Vertical */
+  
+  //background-color:black;
 }
 
-
 /* Reduce inner-paragraph spacing */
-.biography-page p {
+.contact-page p {
 	margin-bottom: 0.5em;
 }
 
+/* Delete table border in contact page */
+.contact-page .table td {
+  border: none;
+}
 
+/* Vertical aling of the header */
+.content-title {
+  vertical-align: top;
+  line-height: 0.8em;    /* Remove typical 1.2 font padding (Aling top of text with img) */
+  padding-left: 0.75rem; /* Same as .table td */
+}
+
+.bg-black {
+  background-color:black;
+}
+
+/* Change tooltip width */
+.tooltip .tooltip-inner {
+  max-width: 300px;
+}
 
 </style>
 
@@ -94,19 +114,16 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 						<article <?php post_class(''); ?> id="post-<?php the_ID(); ?>">
 							<header class="contact-page">
 								<div class="container">
-									<div class="row justify-content-center align-items-center text-justify">
-										<div class="entry-technical-img col-12 col-lg-5">
-											<?php the_post_thumbnail('post-thumbnail', ['class' => 'img-responsive rounded-circle', 'title' => 'Contact image']); ?>
-										</div><!-- .entry-technical-img .col -->
-										<div class="entry-contact text-center text-lg-left col-12 col-lg-3">
-											<h1 class="entry-title text-uppercase text-justify pb-3"><?php the_title(); ?></h1>
-
-											<?php the_content(); ?>
-										</div><!-- .entry-technical .col -->
-									</div><!-- .row -->
-								
-								</div> <!-- .container -->
-								
+                  <div class="row justify-content-center">
+                  <div class="col col-lg-3 text-center">
+                      <?php the_post_thumbnail('medium', ['class' => ' img-fluid rounded', 'title' => 'Contact image']); ?>
+                    </div>
+                    <div class"col col-lg-5 order-2 order-lg-2">
+                        <h1 class="content-title text-uppercase text-justify pb-3 "><?php the_title(); ?></h1>
+                        <?php the_content(); ?>
+                    </div> <!-- .col -->
+                  </div> <!-- .row -->
+                </div> <!-- .container -->
 							</header><!-- .biography-biography -->
 						</article>
 					<?php endwhile; // end of the loop. ?>

@@ -10,8 +10,14 @@
 $the_theme = wp_get_theme();
 $container = get_theme_mod( 'understrap_container_type' );
 ?>
-
-<?php get_sidebar( 'footerfull' ); ?>
+<style>
+#footer-full-content .textwidget {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+  </style>
+<?php if (is_home()): get_sidebar( 'footerfull' ); endif; ?>
 
 
         </div><!-- #page we need this extra closing tag here -->

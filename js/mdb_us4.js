@@ -324,11 +324,18 @@ function mdb_us4_scrollSmooth( $ ) {
 
 
 
-       $( function() { // Ready
-        console.log("this thing loads jquery!");
+  $( function() { // Ready
+  console.log("this thing loads jquery!");
 
-        
-       } );
-    
+  
+  } );
+  
 })( jQuery );
 
+
+
+jQuery(document).ready(function( $ ) {
+
+  $('[data-toggle="tooltip"]').tooltip()    
+  
+});  

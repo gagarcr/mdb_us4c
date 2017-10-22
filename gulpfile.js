@@ -13,8 +13,7 @@ var browserSyncWatchFiles = [
     './*.php',
     // MDBUS4 SPECIAL
     './loop-templates/*.php', // For loop-templates
-    //'./*/*.php', // For loop-templates
-    '.js/mdb_us4.js' //TODO: minify this file
+    // REMOVED: NOW IN [SCRIPTS] '.js/mdb_us4.js' //TODO: minify this file. DONE
 ];
 // browser-sync options
 // see: https://www.browsersync.io/docs/options/
@@ -184,7 +183,14 @@ gulp.task('scripts', function() {
 
         // End - All BS4 stuff
 
-        basePaths.dev + 'js/skip-link-focus-fix.js'
+        basePaths.dev + 'js/skip-link-focus-fix.js',
+        
+        // Start - MDB_US4 theme stuff
+        basePaths.dev + 'js/barba.js',
+        basePaths.dev + 'js/imagesloaded.pkgd.js',
+        basePaths.dev + 'js/isotope.pkgd.js',
+        './js/mdb_us4.js',
+        
     ];
   gulp.src(scripts)
     .pipe(concat('child-theme.min.js'))
@@ -246,26 +252,26 @@ gulp.task('copy-assets', function() {
         .pipe(gulp.dest(basePaths.dev + '/js'));
 
 
-// Copy Popper JS files
-    gulp.src(basePaths.node + 'popper.js/dist/umd/popper.min.js')
-        .pipe(gulp.dest(basePaths.js));
+// Copy Popper JS files. DOne in parent theme
+    //gulp.src(basePaths.node + 'popper.js/dist/umd/popper.min.js')
+    //   .pipe(gulp.dest(basePaths.js));
 
-    gulp.src(basePaths.node + 'popper.js/dist/umd/popper.js')
-        .pipe(gulp.dest(basePaths.js));
+    //gulp.src(basePaths.node + 'popper.js/dist/umd/popper.js')
+    //    .pipe(gulp.dest(basePaths.js));
 
 // Copy Isotope Layout files
     gulp.src(basePaths.node + 'isotope-layout/dist/*.js')
-        .pipe(gulp.dest(basePaths.js));
+        .pipe(gulp.dest(basePaths.dev + '/js'));
 
 // Copy imagesLoaded files
     gulp.src(basePaths.node + 'imagesloaded/imagesloaded.pkgd*.js')
-        .pipe(gulp.dest(basePaths.js));
+        .pipe(gulp.dest(basePaths.dev + '/js'));
 
 // Copy Barba.js files
     gulp.src(basePaths.node + 'barba.js/dist/*.js')
-        .pipe(gulp.dest(basePaths.js));
+        .pipe(gulp.dest(basePaths.dev + '/js'));
 
-        
+// Copy Custom theme script not neccesary
 
 });
 

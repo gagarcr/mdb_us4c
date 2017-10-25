@@ -10,13 +10,7 @@
 $the_theme = wp_get_theme();
 $container = get_theme_mod( 'understrap_container_type' );
 ?>
-<style>
-#footer-full-content .textwidget {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-  </style>
+
 <?php if (is_home()): get_sidebar( 'footerfull' ); endif; ?>
 
 
@@ -24,7 +18,8 @@ $container = get_theme_mod( 'understrap_container_type' );
     </div><!-- .barba-container -->
 </div><!-- #barba-wrapper -->
 
-
+<!--Admin bar -->
+<?php wp_footer(); ?>
 </body>
 
 </html>

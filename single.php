@@ -13,46 +13,6 @@ $container   = 'container-fluid';
 //$container   = 'no-gutters';
 $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 ?>
-<style>
-* {
-	//background-color: rgba(10,220,320,0.2);
-	//border: 1px solid black;
- }
-
-
-#single-wrapper {
-	margin: 0;
-	padding: 0;
-	
-}
-
-#main {
-	margin: 0;
-	padding: 0;
-}
-
-/* left-sidebar-check creates a single cell, that has a padding of 15.
-   We dont need that */
-#primary {
-	padding: 0;
-} 
-
-
-/* Make post-navigation float */
-.post-navigation-bar {
-	position: fixed;
-	top: 2em;
-	bottom: auto;
-	right: 1em;
-	left: auto;
-	mix-blend-mode: difference;	
-}
-
-
-
-
-
-</style>
 
 <div class="wrapper" id="single-wrapper">
 	
@@ -78,9 +38,8 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 						?>
 
 					<?php endwhile; // end of the loop. ?>
-
 					
-					<div class="post-navigation-bar">
+					<div class="cross-arrow">
 						<a href="<?php echo get_home_url(); ?>" aria-label="Close">
 							<img class="img-fluid" alt="x" aria-hidden="true" src="<?php echo  get_stylesheet_directory_uri() . '/fonts/ic_close_white_32px.svg'; ?>"></img>
 							<span class="sr-only">&times;</span>			

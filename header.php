@@ -24,107 +24,15 @@ $container = get_theme_mod( 'understrap_container_type' );
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?> id="mdb_us4c-body">
+<body id="mdb_us4c-body">
 
-<svg class="hideSvgSoThatItSupportsFirefox">
-  <filter id="sharpBlur">
-    <feGaussianBlur stdDeviation="30"></feGaussianBlur>
-    <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 9 0"></feColorMatrix>
-    <feComposite in2="SourceGraphic" operator="in"></feComposite>
-  </filter>
-</svg>
-
-<style>
-
-
-/* Resposive text */
-h1.responsive-text{
-    font-size: 3vw;
-}
-h2.responsive-text{
-    font-size: 2vw;
-}
-
-.title {
-    margin-bottom: 40px;
-    text-transform:  uppercase;
-    color: white;
-    //text-align: center;
-}
-.container-fluid{
-    //margin: 0;
-    //padding: 0;
-}
-
-/* Make the content (below the header) non-transparent
-   so that it hides the header when scrolling */
-.wrapper {
-    background-color: white;
-}
-
-/* Portfolio filter buttons */
-.navbar-filter {
-	background-color: white;
-	margin-top: 0;
-}
-
-/* Vertical Align of child objetcs.
-   DISABLED: Not required anymore in bootstrap4
-.vertical-align {
-    display: flex;  
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    flex-direction: column;
-}
-*/
-.header-button {
-    //margin: 20px;
-
-}
-/* Navigation bar */
-.navbar {
-    //background: white;
-}
-.mdb_nav {
-    //display: flex;
-}
-
-
-
-
-
-
-
-
-
-
-.hideSvgSoThatItSupportsFirefox
-{
-  /* If you use `display: none`, Firefox isn’t able to
-   reference the filter inside the SVG. This avoids
-   the issue by using using .visuallyHidden from the
-   HTML5 Boilerplate.
-   -> https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
-  */
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-
-.blur{
-  /* From https://codepen.io/johndjameson/pen/xVjgPy/ */
-  filter: url('#sharpBlur') saturate(200%); /* The radius is defined in <feGaussianBlur stdDeviation="30"> */
-  //filter: blur(30px) saturate(200%);
-}
-</style>
-
+  <svg class="hideSvgSoThatItSupportsFirefox">
+    <filter id="sharpBlur">
+      <feGaussianBlur stdDeviation="30"></feGaussianBlur>
+      <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 9 0"></feColorMatrix>
+      <feComposite in2="SourceGraphic" operator="in"></feComposite>
+    </filter>
+  </svg>
 
 <div id="barba-wrapper">
 	<?php 

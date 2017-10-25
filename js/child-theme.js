@@ -9630,7 +9630,7 @@ var trim = String.prototype.trim ?
 /*
     Variables
 */
-barbaEnabled = false;
+barbaEnabled = true;
 isotopeEnabled = true;
 
 /**

@@ -1,89 +1,3 @@
-
-<style>
-* {
-	//background-color: rgba(123,120,120,0.2);
-	//border: 1px solid black;
-}
-
-.project-page {
-	min-height: 100vh;
-	//border-bottom: 1px solid black;
-	position: relative; /* Reset x,y coord */
-
-	/* Required to center the <h1> */
-	display:flex;
-    align-items: center;
-    justify-content: center;
-	flex-direction: column;
-
-	padding-bottom: 4em;
-	padding-top: 4em;
-
-}
-
-
-.project-page.entry-header { /* project-page and entry header */
-	background-color: rgba(0,0,0,1);
-}
-
-.project-technical .container {
-	/* Required to center the <h1> */
-	//display:flex;
-    //align-items: center;
-    //justify-content: center;
-	//flex-direction: row;
-}
-
-.project-gallery {
-	//background-color: rgba(0,0,0,1);
-}
-
-.project-gallery .card {
-	border: none;
-}
-
-
- 
-a.scroll-arrow {
-    font-size: 35px;
-    color: white;
-    width: 40px;
-	height: 40px;
-    line-height: 35px;
-    border-radius: 50%;
-    border: 0px solid white;
-    display: block;
-    margin: 0 auto;
-    position: absolute;
-    bottom: 2em;
-    left: 50%;
-    z-index: 1029;
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    transform: translateX(-50%);
-    opacity: 1;
-	box-sizing: border-box;
-
-
-	text-align: top;
-}
-
-
-a.scroll-arrow i {
-	width: 100%;
-	//height: 100%;
-	//margin: auto;
-	vertical-align:middle;
-	
-}
-
-
-
-
-</style>
-
 <?php
 /**
  * Single post partial template.
@@ -110,11 +24,11 @@ a.scroll-arrow i {
 		<div class="container">
 			<div class="row justify-content-center align-items-center text-justify">
 				<div class="entry-technical text-center text-lg-left col-12 col-lg-3">
-					<h4 class="entry-title text-uppercase text-justify pb-3"><?php the_field('technical_description_title'); ?></h4>
+					<h4 class="entry-title text-uppercase text-center text-lg-left pb-3"><?php the_field('technical_description_title'); ?></h4>
 
 					<?php the_field('technical_description'); ?>
 				</div><!-- .entry-technical .col -->
-				<div class="entry-technical-img d-none d-lg-block col-lg-5">
+				<div class="entry-technical-img d-none d-lg-block col-lg-5 pl-5">
 					<?php 
 						$id = get_field('technical_description_image');
 						// Only add if user created it

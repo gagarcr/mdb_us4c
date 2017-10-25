@@ -14,11 +14,11 @@
 	$width = get_post_meta(get_the_ID(), 'portfolio-width', true);
 
 	if ($width == 3):
-		$classes = array('col-xs-12 col-md-12 card text-white border-light text-center grid-item p-3');
+		$classes = array('col-xs-12 col-md-12 card text-white border-light text-center grid-item pt-3 pb-3');
 	elseif ($width == 2):
-		$classes = array('col-xs-12 col-md-12 card text-white border-light text-center grid-item p-3');
-	else:
-		$classes = array('col-xs-12 col-md-4 card text-white border-light text-center grid-item p-3'); // Padding to x-sizer y-sizer
+		$classes = array('col-xs-12 col-md-12 card text-white border-light text-center grid-item pt-3 pb-3');
+  else:
+		$classes = array('col-xs-12 col-md-4 card text-white border-light text-center grid-item pt-3 pb-3'); // Padding to x-sizer y-sizer
 		//echo('<div class="col-xs-12 col-md-4 grid-item">');			 
 	endif;
 

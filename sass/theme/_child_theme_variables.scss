@@ -90,7 +90,7 @@ $theme-colors: (
 //$link-hover-decoration: white;
 
 
-$nav-link-disabled-color:       $light;
+$nav-link-disabled-color:       map-get($theme-colors, light);
 
 
 //$nav-pills-link-active-color: map-get($theme-colors, info) ;

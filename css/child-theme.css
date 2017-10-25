@@ -3373,7 +3373,7 @@ tbody.collapse.show {
   .nav-link:focus, .nav-link:hover {
     text-decoration: none; }
   .nav-link.disabled {
-    color: red; }
+    color: #f8f9fa; }
 
 .nav-tabs {
   border-bottom: 1px solid #ddd; }
@@ -3386,7 +3386,7 @@ tbody.collapse.show {
     .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
       border-color: #e9ecef #e9ecef #ddd; }
     .nav-tabs .nav-link.disabled {
-      color: red;
+      color: #f8f9fa;
       background-color: transparent;
       border-color: transparent; }
   .nav-tabs .nav-link.active,
@@ -9140,11 +9140,37 @@ a.skip-link {
 .gallery-caption {
   display: block; }
 
-#wrapper-footer-full,
-#wrapper-static-hero {
-  background-color: #212529;
-  color: #f8f9fa;
-  padding: 0.5em 0; }
+/******************************************************
+ ********************** HELPERS ***********************
+ ******************************************************/
+/* Vertical align ( childs, apply to parent ). 
+   Alernative to: "container d-flex h-100 justify-content-center align-items-center" justify-content-center (horizontal, flexbox) align-items-center(vertival, flexbox)*/
+.v-align-child-center {
+  display: flex;
+  height: 100%;
+  align-items: center; }
+
+/* Other option for vertical align */
+.v-align-self-center {
+  margin-top: auto;
+  margin-bottom: auto; }
+
+/* Horizon align 
+   Alternative to: "justify-content-center" */
+.h-align-self-center {
+  margin-left: auto;
+  margin-right: auto; }
+
+/* Black background */
+.bg-black {
+  background-color: black; }
+
+/******************************************************
+ *********************** GLOBAL ***********************
+ ******************************************************/
+/* Allow <html> margins, etc. Resests corrdinate */
+body {
+  position: relative; }
 
 /* Remove any link decoration */
 a {
@@ -9156,12 +9182,349 @@ a {
   a:visited {
     text-decoration: none; }
 
-/* Fix nav-pills hover color. */
-.nav-pills .nav-link.active {
+/* Special "scroll arrow" to nevigate between sub-pages */
+a.scroll-arrow {
+  font-size: 35px;
+  color: #f8f9fa;
+  width: 40px;
+  height: 40px;
+  line-height: 35px;
+  border-radius: 50%;
+  border: 0px solid white;
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 2em;
+  left: 50%;
+  z-index: 1029;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  opacity: 1;
+  box-sizing: border-box;
+  text-align: top;
+  mix-blend-mode: difference; }
+
+a.scroll-arrow i {
+  width: 100%;
+  vertical-align: middle; }
+
+/* Cross arrow.  */
+.cross-arrow {
+  position: fixed;
+  top: 2em;
+  bottom: auto;
+  right: 1em;
+  left: auto;
+  mix-blend-mode: difference; }
+
+/* Resposive text */
+h1.responsive-text {
+  font-size: 3vw; }
+
+h2.responsive-text {
+  font-size: 2vw; }
+
+/* Layout, no margins */
+#single-wrapper {
+  margin: 0;
+  padding: 0; }
+
+#main {
+  margin: 0;
+  padding: 0; }
+
+/* left-sidebar-check creates a single cell, that has a padding of 15.
+   We dont need that */
+#primary {
+  padding: 0; }
+
+.hideSvgSoThatItSupportsFirefox {
+  /* If you use `display: none`, Firefox isn’t able to
+   reference the filter inside the SVG. This avoids
+   the issue by using using .visuallyHidden from the
+   HTML5 Boilerplate.
+   -> https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+  */
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+/* Bur effect.
+   From: https://codepen.io/johndjameson/pen/xVjgPy/ */
+.blur {
+  /* The radius is defined in <feGaussianBlur stdDeviation="30"> */
+  filter: url("#sharpBlur") saturate(200%); }
+
+/******************************************************
+ ***********************  HOME  ***********************
+ ******************************************************/
+/* PARALLAX */
+/* Main page title */
+.home-page .title {
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  color: #f8f9fa; }
+
+/* Header parallax. 
+   We use .parallax: it is scrollable but reserves the space so the rest of the content
+   goes below this section ( ie: a "window"). Below it, we use .parallax .parallax-fixed
+   to display a fixed bacground that will be static behind.
+   */
+.home-page.wrapper {
+  padding: 0; }
+
+.home-page .parallax {
+  width: 100%;
+  min-height: 200px;
+  height: 60vh;
+  /* 60% of viewport height */
+  margin: 0;
+  padding: 0;
+  /*max-height: 800px;*/
+  overflow: hidden;
+  position: relative;
+  z-index: -1; }
+
+/* Increase navbar top distance to match bottoms cards margin */
+.home-page #navbar-selector {
+  padding-top: 16px; }
+
+.home-page .parallax .parallax-fixed {
+  width: 100%;
+  min-height: 200px;
+  height: 60vh;
+  margin: 0 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  will-change: transform;
+  /* creates a new paint layer */ }
+
+/* Wordpress admin bar integration.
+   As we have a fixed element, we dont want to override the wp admin bar
+   .admin-bar is added to <body> class by wp */
+.admin-bar .home-page .parallax .parallax-fixed {
+  margin-top: 0px; }
+  @media (min-width: 576px) {
+    .admin-bar .home-page .parallax .parallax-fixed {
+      margin-top: 46px; } }
+  @media (min-width: 768px) {
+    .admin-bar .home-page .parallax .parallax-fixed {
+      margin-top: 32px; } }
+
+/* Make the content (below the header) non-transparent
+   so that it hides the header when scrolling.
+   We create a full width background bellow */
+.home-page #content {
+  background-color: white; }
+
+/* NAVIGATION BAR */
+/* Fix nav-pills hover color */
+.home-page .nav-pills .nav-link.active {
   background-color: #212529;
   color: #f8f9fa; }
 
-.nav-pills .nav-link.active:hover {
+.home-page .nav-pills .nav-link.active:hover {
   color: #f8f9fa; }
 
-/* Customize background color */
+/* Portfolio filter buttons */
+.home-page .navbar-filter {
+  background-color: #f8f9fa;
+  margin-top: 0; }
+
+/* Custom logo width */
+.home-page .custom-logo-link > img {
+  width: 50px;
+  mix-blend-mode: multiply; }
+
+/* PROJECT GRID */
+.home-page .grid {
+  /* Enable HW acceleration */
+  transform: translate3d(0, 0, 0); }
+
+/* Remove card border. '.' = and ) */
+.home-page .card.grid-item {
+  border: none;
+  /* Hover projects.
+   .card-img-overlay is the overall hover. A .card-img is located below
+   that acts as a background for the hover (that can be blurred) */
+  /* Position card-title in the center */ }
+  .home-page .card.grid-item .overlay {
+    position: absolute;
+    top: auto;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 5em;
+    opacity: 0;
+    overflow: hidden;
+    /* The contents (img) will be bigger, we dont want to show anything */
+    background-color: white;
+    /* We set the content with a background, and the content::before with the background blurred. This prevents
+                    the edges being transparentens on the blurred background */
+    background-size: cover;
+    border-radius: calc(.25rem - 1px);
+    /* Create a common z-workspace for .overlay childs */
+    z-index: 0;
+    /* Required to center the <h1> */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* transitions */
+    transition: opacity 0.25s ease; }
+    .home-page .card.grid-item .overlay .card-img {
+      /* We set to absolute and start in the coordinates of the parent. This way we dont distort
+           the image, and it is alligned */
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      transform: translateY(-100%) translateY(5em) translateZ(0);
+      /* Move 100% up, the 5 em down */
+      z-index: 1; }
+    .home-page .card.grid-item .overlay::before {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 2; }
+  .home-page .card.grid-item:hover .overlay {
+    opacity: 1; }
+  .home-page .card.grid-item .card-a {
+    overflow: hidden;
+    background-color: white;
+    position: relative; }
+  .home-page .card.grid-item .card-title {
+    position: relative;
+    margin: 0;
+    z-index: 4; }
+
+/* FOOTER */
+/* Adding some contrast background color to footer full widget */
+#wrapper-footer-full,
+#wrapper-static-hero {
+  background-color: #212529;
+  color: #f8f9fa;
+  padding: 0.5em 0; }
+
+/* Separate footer paragraphs */
+#footer-full-content .textwidget {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* Remove parent col padding */
+  margin-left: -15px;
+  margin-right: -15px; }
+  #footer-full-content .textwidget p {
+    margin: .25em 0;
+    padding: 0; }
+
+/******************************************************
+ ******************** PROJECT PAGE ********************
+ ******************************************************/
+/* Project page wrapper. Set to 100% viewport */
+.project-page {
+  min-height: 100vh;
+  position: relative;
+  /* Reset x,y coord */
+  /* Required to center the <h1> */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* We try to divide each sub page with proper margins */
+  padding-bottom: 4em;
+  padding-top: 4em; }
+
+/* The entry sub-page */
+.project-page.entry-header {
+  /* project-page and entry header */
+  background-color: black; }
+
+/* Gallery sub-page */
+.project-gallery .card {
+  border: none; }
+
+/******************************************************
+ ******************* BIOGRAPHY PAGE *******************
+ ******************************************************/
+/* Biography page wrapper. Creates individual pages */
+.biography-page {
+  min-height: 100vh;
+  position: relative;
+  /* Reset x,y coord */
+  padding-bottom: 4em;
+  padding-top: 4em;
+  /* Required to center the <h1> */
+  display: flex;
+  align-items: center;
+  /* Horinzontal */
+  justify-content: center;
+  /* Vertical */
+  flex-direction: column; }
+
+/* Reduce inner-paragraph spacing */
+.biography-page p {
+  margin-bottom: 0.5em; }
+
+/* Remove inner year border */
+.table td.td-inner-year {
+  border-top: none; }
+
+/******************************************************
+ *******************  CONTACT PAGE  *******************
+ ******************************************************/
+/* By default, class .wrapper includes 30px padding */
+#page-contact-wrapper {
+  padding: 0; }
+
+/* 100% view port size */
+.contact-page {
+  min-height: 100vh;
+  position: relative;
+  /* Reset x,y coord */
+  padding-bottom: 4em;
+  padding-top: 4em;
+  /* Required to center the <h1> */
+  display: flex;
+  align-items: center;
+  /* Vertical */ }
+
+/* Reduce inner-paragraph spacing */
+.contact-page p {
+  margin-bottom: 0.5em; }
+
+/* Delete table border in contact page */
+.contact-page .table td {
+  border: none; }
+
+/* Vertical aling of the header */
+.contact-page .content-title {
+  vertical-align: top;
+  line-height: 0.8em;
+  /* Remove typical 1.2 font padding (Aling top of text with img) */
+  padding-left: 0.75rem;
+  /* Same as .table td */ }
+
+/* Change tooltip width
+   WARNIG: Global-scope */
+.tooltip .tooltip-inner {
+  max-width: 300px; }
+
+/******************************************************
+ *******************  DEVELOPMENT  ********************
+ ******************************************************/

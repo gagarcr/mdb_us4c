@@ -17,88 +17,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 
 ?>
 
-
-<style>
-* {
-	//background-color: rgba(10,220,320,0.2);
-	//border: 1px solid black;
- }
-
-
-#single-wrapper {
-	margin: 0;
-	padding: 0;
-	
-}
-
-#main {
-	margin: 0;
-	padding: 0;
-}
-
-/* left-sidebar-check creates a single cell, that has a padding of 15.
-   We dont need that */
-#primary {
-	padding: 0;
-} 
-
-/* Make post-navigation float */
-.post-navigation-bar {
-	position: fixed;
-	top: 2em;
-	bottom: auto;
-	right: 1em;
-	left: auto;
-	mix-blend-mode: difference;	
-}
-
-.contact-page {
-	min-height: 100vh;
-	//border-bottom: 1px solid black;
-	position: relative; /* Reset x,y coord */
-
-
-	//padding-bottom: 1em;
-	//padding-top: 2em;
-	padding-bottom: 4em;
-	padding-top: 4em;
-
-	/* Required to center the <h1> */
-	display:flex;
-  align-items: center; /* Vertical */
-  
-  //background-color:black;
-}
-
-/* Reduce inner-paragraph spacing */
-.contact-page p {
-	margin-bottom: 0.5em;
-}
-
-/* Delete table border in contact page */
-.contact-page .table td {
-  border: none;
-}
-
-/* Vertical aling of the header */
-.content-title {
-  vertical-align: top;
-  line-height: 0.8em;    /* Remove typical 1.2 font padding (Aling top of text with img) */
-  padding-left: 0.75rem; /* Same as .table td */
-}
-
-.bg-black {
-  background-color:black;
-}
-
-/* Change tooltip width */
-.tooltip .tooltip-inner {
-  max-width: 300px;
-}
-
-</style>
-
-<div class="wrapper" id="single-wrapper">
+<div class="wrapper" id="page-contact-wrapper">
 	
 	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
 
@@ -112,7 +31,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 					<?php while ( have_posts() ) : the_post(); ?>
 
 						<article <?php post_class(''); ?> id="post-<?php the_ID(); ?>">
-							<header class="contact-page">
+							<div class="contact-page">
 								<div class="container">
                   <div class="row justify-content-center">
                   <div class="col col-lg-3 text-center">
@@ -124,12 +43,12 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
                     </div> <!-- .col -->
                   </div> <!-- .row -->
                 </div> <!-- .container -->
-							</header><!-- .biography-biography -->
+							</divr><!-- .biography-biography -->
 						</article>
 					<?php endwhile; // end of the loop. ?>
 
 					
-					<div class="post-navigation-bar">
+					<div class="cross-arrow">
 						<a href="<?php echo get_home_url(); ?>" aria-label="Close">
 							<img class="img-fluid" alt="x" aria-hidden="true" src="<?php echo  get_stylesheet_directory_uri() . '/fonts/ic_close_white_32px.svg'; ?>"></img>
 							<span class="sr-only">&times;</span>			

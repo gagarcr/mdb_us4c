@@ -2,7 +2,7 @@
 /*
     Variables
 */
-barbaEnabled = false;
+barbaEnabled = true;
 isotopeEnabled = true;
 
 /**

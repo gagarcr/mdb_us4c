@@ -39,10 +39,12 @@ function mdb_us4c_setup() {
     // Add custom-header.php inclusion. This handles the custom header
     // theme support.
     add_theme_support( 'custom-header', array(
+        'default-text-color' => 'white',
+        'width'         => 1900,
+        'height' => 600,
+        
         'flex-width'    => true,
-        'width'         => 980,
         'flex-height'    => true,
-        'height'        => 200,
         'default-image' => get_template_directory_uri() . '/images/header.jpg',
     ) );
 
@@ -50,10 +52,13 @@ function mdb_us4c_setup() {
     register_nav_menus( array(
         'category_filter' => 'Catergory Filter Menu'
     ) );
+
 }
 
 // Call mdb_us4c_setup
 add_action( 'after_setup_theme', 'mdb_us4c_setup' );
+
+
 
 
 /**
@@ -72,6 +77,16 @@ function mdb_us4c_get_menu( $menu_name ) {
         }
     }
    return false; 
+}
+ 
+ // Modify default [...]
+function custom_excerpt_more( $more ) {
+  return ' [...]';
+}
+
+/* Modify understrap add more button */
+function all_excerpts_get_more_link( $post_excerpt ) {
+  return $post_excerpt;
 }
 
 ?>

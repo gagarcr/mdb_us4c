@@ -6,35 +6,20 @@
  */
 
 ?>
-<article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
+            
+<article <?php post_class('card mb-3'); ?> id="post-<?php the_ID(); ?>">
+    
+    <header class="entry-header card-header">
+      <?php the_title( sprintf( '<a href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
+      '</a>' ); ?>
+    </header><!-- .entry-header -->
+    
+  <div class="card-body">
+    <div class="entry-summary card-text">
 
-	<header class="entry-header">
+      <?php the_excerpt(); ?>
 
-		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
-		'</a></h2>' ); ?>
-
-		<?php if ( 'post' == get_post_type() ) : ?>
-
-			<div class="entry-meta">
-
-				<?php understrap_posted_on(); ?>
-
-			</div><!-- .entry-meta -->
-
-		<?php endif; ?>
-
-	</header><!-- .entry-header -->
-
-	<div class="entry-summary">
-
-		<?php the_excerpt(); ?>
-
-	</div><!-- .entry-summary -->
-
-	<footer class="entry-footer">
-
-		<?php understrap_entry_footer(); ?>
-
-	</footer><!-- .entry-footer -->
+    </div><!-- .entry-summary -->
+  </div><!-- .card-body -->
 
 </article><!-- #post-## -->

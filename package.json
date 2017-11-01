@@ -10,14 +10,13 @@
     "type": "git",
     "url": "https://github.com/gagarcr/mdb_us4c.git"
   },
-    "keywords": [
+  "keywords": [
     "wordpress",
     "theme",
     "framework",
     "bootstrap",
     "underscores"
   ],
-
   "author": "Gabriel Garcia",
   "license": "GPL-2.0",
   "bugs": {
@@ -53,7 +52,8 @@
     "understrap": "^0.6.5",
     "isotope-layout": "^3.0.4",
     "imagesloaded" : "^4.1.3",
-    "barba.js" : "^1.0.0"
+    "barba.js": "^1.0.0"
+  },
+  "devDependencies": {
   }
-    
 }

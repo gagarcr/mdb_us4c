@@ -1,23 +1,18 @@
 <?php
 /**
- * Template Name: Biography Page Template
+ * The template for displaying the biography page
  *
- * Template for displaying a blank page.
- *
- * @package mdb_us4c
+ * @package understrap
  */
 
 get_header();
 
-//TODO: implement understrap_project_container_type
 //$container   = get_theme_mod( 'understrap_container_type' );
 $container   = 'container-fluid';
-//$container   = 'no-gutters';
 $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
-
 ?>
 
-<div class="wrapper" id="single-wrapper">
+<div class="wrapper" id="page-biography-wrapper">
 	
 	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
 
@@ -31,10 +26,15 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 					<?php while ( have_posts() ) : the_post(); ?>
 
 						<article <?php post_class(''); ?> id="post-<?php the_ID(); ?>">
+
 							<header class="biography-page biography-biography" id="sectionBioBiography">
+
 								<div class="container">
+
 									<div class="row justify-content-center align-items-center">
+
 										<div class="col-12 col-lg-8">
+
 											<h1 class="entry-title text-uppercase text-center pb-3"><?php the_title(); ?></h1>
 											<div class="entry-short text-justify">
 												<p>
@@ -49,30 +49,42 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 								<a id="cli" href="#sectionBioStatement" class="scroll-arrow d-none d-md-block">
 									<i class="fa fa-angle-down"></i>
 								</a>
+
 							</header><!-- .biography-biography -->
 						
 							<!-- Technical description page -->	
 							<div class="biography-page biography-statement" id="sectionBioStatement">
+
 								<div class="container">
+
 									<div class="row justify-content-center align-items-center">
+
 										<div class="col-12 col-lg-8">
+
 											<h1 class="entry-title text-uppercase text-center pb-3"><?php the_field('statement_title'); ?></h1>
 											<div class="entry-statement text-justify">
 												<?php the_field('statement'); ?>
 											</div><!-- .entry-statement -->
+
 										</div><!-- .col -->
 									</div><!-- .row -->		
 								</div> <!-- .container -->
+
 								<a id="cli" href="#sectionExhibitions" class="scroll-arrow d-none d-md-block">
 									<i class="fa fa-angle-down"></i>
 								</a>
+
 							</div> <!-- .biography-statement -->
 						
 							<!-- full description page -->	
 							<div class="biography-page biography-exhibitions" id="sectionExhibitions">
+
 								<div class="container">
+
 									<div class="row justify-content-center align-items-center">
+
 										<div class="col-12 col-lg-8">
+
 											<h1 class="entry-title text-uppercase text-center pb-3"><?php the_field('exhibitions_title'); ?></h1>
 											<div class="entry-exhibitions text-justify">
 												
@@ -127,22 +139,18 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 												}
 												
 												 ?>
-											</div><!-- .entry-statement -->
+
+											</div><!-- .entry-exhibitions -->
+
 										</div><!-- .col -->
 									</div><!-- .row -->
-								</div><!-- .entry-long -->
-							</div> <!-- .pbiography-exhibitions -->
+								</div><!-- .container -->
+
+							</div> <!-- .biography-exhibitions -->
 						
 						</article>
 					<?php endwhile; // end of the loop. ?>
-
 					
-					<div class="cross-arrow">
-						<a href="<?php echo get_home_url(); ?>" aria-label="Close">
-							<img class="img-fluid" alt="x" aria-hidden="true" src="<?php echo  get_stylesheet_directory_uri() . '/fonts/ic_close_white_32px.svg'; ?>"></img>
-							<span class="sr-only">&times;</span>			
-						</a>					
-					</div>
 				</main><!-- #main -->
 
 			</div><!-- #primary -->

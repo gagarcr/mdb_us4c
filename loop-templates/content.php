@@ -14,41 +14,49 @@
 	$width = get_post_meta(get_the_ID(), 'portfolio-width', true);
 
 	if ($width == 3):
-		$classes = array('col-xs-12 col-md-12 card text-white border-light text-center grid-item pt-3 pb-3');
+		$classes = array('col-xs-12 col-md-12 card text-white text-center grid-item pt-3 mb-4');
 	elseif ($width == 2):
-		$classes = array('col-xs-12 col-md-12 card text-white border-light text-center grid-item pt-3 pb-3');
+		$classes = array('col-xs-12 col-md-8 card text-white text-center grid-item pt-3 mb-4');
   else:
-		$classes = array('col-xs-12 col-md-4 card text-white border-light text-center grid-item pt-3 pb-3'); // Padding to x-sizer y-sizer
-		//echo('<div class="col-xs-12 col-md-4 grid-item">');			 
+		$classes = array('col-xs-12 col-md-4 card text-white text-center grid-item mt-3 mb-4'); // Padding to x-sizer y-sizer
 	endif;
 
 ?>
-	<div <?php echo(post_class($classes)); ?>>
-		<!-- Make the hole element clickable -->
 
-		<a class="card-a" href="<?php echo( get_permalink() ) ?>">
-			<img class="card-img" src="<?php echo get_the_post_thumbnail_url( $post->ID, 'large' ); ?>" alt="<?php echo $post->ID ?>">
-			<div class="overlay">
-				<h4 class="card-title text-white text-uppercase"><?php the_title(); ?></h4>
-				<img class="card-img blur" src="<?php echo get_the_post_thumbnail_url( $post->ID, 'large' ); ?>" alt="<?php echo $post->ID ?>">
-				<?php if (0): ?>
-					<p class="card-text"><?php the_excerpt(); ?></p>
-				<?php endif; ?>
-			</div><!-- #card-img-overlay -->
-		
-		
-			<?php if (0): ?>
-			<div class="container-fluid">
-				<div class="row justify-content-center">
-					<?php echo get_the_post_thumbnail( $post->ID, 'large' ); ?>
-				</div><!-- #row -->
-			</div><!-- #container-fluid -->
-			<?php endif; ?>
-			</a><!-- End clickable -->
+<div <?php echo(post_class($classes)); ?>>
 
-<article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
+    <?php if (has_post_thumbnail()): ?>
 
-</article><!-- #post-## -->
+      <!-- Make the hole element clickable -->
+      <a class="card-a bg-secondary" href="<?php echo( get_permalink() ) ?>">
 
+        <img class="card-img" src="<?php echo get_the_post_thumbnail_url( $post->ID, 'large' ); ?>" alt="<?php echo $post->ID ?>">
 
+        <div class="overlay">
+
+          <h4 class="card-title text-white text-uppercase"><?php the_title(); ?></h4>
+          <img class="card-img blur" src="<?php echo get_the_post_thumbnail_url( $post->ID, 'large' ); ?>" alt="<?php echo $post->ID ?>">
+
+        </div><!-- #card-img-overlay -->
+
+      </a><!-- .card-a -->
+
+    <?php else: ?>
+
+      <?php if (has_tag()): ?>
+      
+        <div class="card-header card-project-text bg-light text-primary text-capitalize text-left"><?php the_tags(''); ?></div>
+      
+      <?php endif; ?>
+
+      <a class="card-body card-project-text bg-light pt-1" href="<?php echo( get_permalink() ) ?>">
+
+        <h4 class="card-title text-primary text-left pb-3"><?php the_title(); ?></h4>
+        <div class="card-text text-muted text-left"><?php the_excerpt() ?></div>
+
+      </a><!-- .card-body -->
+        
+    <?php endif; ?>
+
+  </a><!-- .card-a -->
 </div><!-- End custom Tag proccessing --> 

@@ -34,6 +34,10 @@ $container = get_theme_mod( 'understrap_container_type' );
     </filter>
   </svg>
 
+<div id="loader-opener" class="d-none">
+  <h1 class="text-uppercase strong"><?php bloginfo( 'name' ); ?></h1>
+</div>
+
 <div id="barba-wrapper">
 	<?php 
 		function get_current_template() {
@@ -46,94 +50,5 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 		<div class="hfeed site" id="page">
 
-			<?php if(0): ?>
-			<div class="d-none">
-				<?php if ( 'container' == $container ) : ?>
-					<div class="container">
-				<?php endif; ?>
-
-					<h1 class="title responsive-text mt-1 mr-3 text-right text-uppercase"> 
-						<?php
-							$title = get_bloginfo( 'name', 'raw');
-							$title_words = explode(' ', $title);
-							foreach ($title_words as $value)
-							{
-								echo ($value . ".  ");
-							}
-						?>
-					</h1>
-				<?php if ( 'container' == $container ) : ?>
-					</div><!-- .container -->
-				<?php endif; ?>
-			</div><!-- .d-none -->
-			<?php endif; ?>
-
-
-	
-
-
-
-
-			<?php if (0): ?>
-
-			<!-- ******************* The Navbar Area ******************* -->
-			<div class="wrapper-fluid wrapper-navbar" id="wrapper-navbar">
-
-				<a class="skip-link screen-reader-text sr-only" href="#content"><?php esc_html_e( 'Skip to content',
+      <a class="skip-link screen-reader-text sr-only" href="#content"><?php esc_html_e( 'Skip to content',
 				'understrap' ); ?></a>
-
-				<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-
-				<?php if ( 'container' == $container ) : ?>
-					<div class="container">
-				<?php endif; ?>
-
-							<!-- Your site title as branding in the menu -->
-							<?php if ( ! has_custom_logo() ) { ?>
-
-								<?php if ( is_front_page() && is_home() ) : ?>
-
-									<h1 class="navbar-brand mb-0"><a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-									
-								<?php else : ?>
-
-									<a class="navbar-brand" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
-								
-								<?php endif; ?>
-								
-							
-							<?php } else {
-								//$custom_logo_id = get_theme_mod( 'custom_logo' );
-								//$logo = wp_get_attachment_image_src( $custom_logo_id , 'thumbnail' );
-								//echo '<img src="'. esc_url( $logo[0] ) .'">';
-								the_custom_logo();
-							} ?><!-- end custom logo -->
-
-						<button class="navbar-toggler" type="button" data-toggle="collapse-filter" data-target="#navbarNavDropdown-filter" aria-controls="navbarNavDropdown-filter" aria-expanded="false" aria-label="Toggle">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-
-						<!-- The WordPress Menu goes here -->
-						<?php wp_nav_menu(
-							array(
-								'theme_location'  => 'primary',
-								'container_class' => 'collapse-filter navbar-collapse',
-								'container_id'    => 'navbarNavDropdown-filter',
-								'menu_class'      => 'navbar-nav',
-								'fallback_cb'     => '',
-								'menu_id'         => 'main-menu',
-								'walker'          => new WP_Bootstrap_Navwalker(),
-							)
-						); ?>
-					<?php if ( 'container' == $container ) : ?>
-					</div><!-- .container -->
-					<?php endif; ?>
-
-				</nav><!-- .site-navigation -->
-
-			</div><!-- .wrapper-navbar end -->
-
-			<?php endif; ?>
-
-
-	

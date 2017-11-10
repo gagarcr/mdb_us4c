@@ -25,7 +25,13 @@
   
 /* Black background */
 .bg-black {
-  background-color:black;
+  background-color:rgb(0,0,0)!important;   // Falback
+  background-color:rgba(0,0,0,1)!important;
+}
+
+/* Strong text */
+.text-strong {
+  font-weight: bold;
 }
 
 
@@ -34,7 +40,15 @@
  ******************************************************/
 
 /* Allow <html> margins, etc. Resests corrdinate */
-body { position: relative; }
+
+html {
+  //overflow: hidden; 
+  overflow-y: scroll; 
+}
+body { 
+  position: relative; 
+  padding-right:0!important; /* Prevent modal style, we use fixed scrollbars */
+}
 
 /* Remove any link decoration */
 a {
@@ -53,23 +67,17 @@ a {
 /* Special "scroll arrow" to nevigate between sub-pages */
 a.scroll-arrow {
   font-size: 35px;
-  color: theme-color("secondary");
+  color: white;
   width: 40px;
   height: 40px;
   line-height: 35px;
   border-radius: 50%;
   border: 0px solid white;
   display: block;
-  margin: 0 auto;
-  position: absolute;
-  bottom: 2em;
-  left: 50%;
-  z-index: 1029;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
+  //margin-top: auto;
+  //position: relative;
+  margin-top: 1em;
+  margin-bottom: 0;
   opacity: 1;
   box-sizing: border-box;
   text-align: top;
@@ -84,11 +92,18 @@ a.scroll-arrow i {
 /* Cross arrow.  */
 .cross-arrow {
 	position: fixed;
-	top: 2em;
-	bottom: auto;
+	top: 1em;
 	right: 1em;
-	left: auto;
-	mix-blend-mode: difference;	
+  z-index: $zindex-tooltip;
+  mix-blend-mode: difference;
+  
+
+  a {
+    color: white;
+    opacity: 1;	  
+    mix-blend-mode: difference;
+    
+  }
 }
 
 /* Resposive text */
@@ -98,6 +113,10 @@ h1.responsive-text{
 h2.responsive-text{
   font-size: 2vw;
 }
+h3.responsive-text{
+  font-size: 1vw;
+}
+
 
 /* Layout, no margins */
 #single-wrapper {
@@ -171,12 +190,11 @@ h2.responsive-text{
   /*max-height: 800px;*/
   overflow: hidden;
   position: relative;
-  z-index: -1;
 } 
 
 /* Increase navbar top distance to match bottoms cards margin */
 .home-page #navbar-selector {
-  padding-top: 16px; // Same as card margin
+  padding: 16px 0 0 0;  // Padding-top Same as card margin
 }
 
 .home-page .parallax .parallax-fixed {
@@ -190,7 +208,7 @@ h2.responsive-text{
   top: 0;
   left: 0;
   //left: 50%;  
-  z-index: -1;
+  //z-index: -1;
   will-change: transform; /* creates a new paint layer */
   //transform: translateX(-50%);
 
@@ -211,16 +229,10 @@ h2.responsive-text{
   }
 }
 
-/* Make the content (below the header) non-transparent
-   so that it hides the header when scrolling.
-   We create a full width background bellow */
-.home-page #content {
-  background-color: white;
-}
-
 /* NAVIGATION BAR */
 /* Fix nav-pills hover color */
 .home-page .nav-pills .nav-link {
+
   &.active {
     background-color: theme-color('primary');
     color: theme-color('secondary');
@@ -230,16 +242,17 @@ h2.responsive-text{
   }
 }
 
-/* Portfolio filter buttons */
-.home-page .navbar-filter {
-	background-color: theme-color('secondary');
-	margin-top: 0;
+.home-page .navbar-nav.nav-fill .nav-item {
+  flex: none; /* Justify pils, they do not grow*/
 }
+
 
 /* Custom logo width */
 .home-page .custom-logo-link > img {
-	width: 50px;
-	mix-blend-mode: multiply; // Make white transparent
+	width: 75px;
+  margin-left: 1em;
+  margin-right: 1em;
+  mix-blend-mode: multiply; // Make white transparent
 }
 
 /* PROJECT GRID */
@@ -270,7 +283,7 @@ h2.responsive-text{
                     the edges being transparentens on the blurred background */
     background-size: cover;       
     border-radius: calc(.25rem - 1px);
-  
+
     /* Create a common z-workspace for .overlay childs */
     z-index: 0;
   
@@ -318,16 +331,38 @@ h2.responsive-text{
 
   & .card-a {
     overflow: hidden;
-    background-color: white;
     position: relative;
   }
 
   /* Position card-title in the center */
-  & .card-title{
+  & .card-title {
     position: relative; 
     margin: 0;
     z-index: 4;
   }
+
+  /* Text-only project */
+  &.card-project-text {
+    background-color: $grid-textCard-background-color;
+    
+    .card-header {
+      border-bottom: 0;
+      font-weight: 100;
+      background-color: inherit; // Remove native card-header 0.3 opacity dark background;
+    }
+
+    .card-title {
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .card-body {
+      @include border-bottom-radius($card-border-radius);
+      border-width: 10px;
+      transition: background-color 0.25s ease;
+    }
+  }
+
 }
 
 
@@ -341,21 +376,32 @@ h2.responsive-text{
 };
 
 /* Separate footer paragraphs */
-#footer-full-content .textwidget {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
- 
-  /* Remove parent col padding */
-  margin-left: -15px;
-  margin-right: -15px;
+#footer-full-content{
 
-  & p {
-    margin: .25em 0;
-    padding: 0;
+  /* Only in sm the margins reduces */
+  @include media-breakpoint-up(sm) {
+    .footer-widget{
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
-  
+
+  .textwidget {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+   
+    padding-top:0;
+    & p {
+      margin-bottom: .25em;
+      margin-top: .25em;
+      padding: 0;
+    }
+    
+    
+  }
 }
+
 
 
 /******************************************************
@@ -376,18 +422,50 @@ h2.responsive-text{
 
   /* We try to divide each sub page with proper margins */
 	padding-bottom: 4em;
-	padding-top: 4em;
+  padding-top: 4em;
+  
+  background-color: white;  
+
+  /* Header sub-page */
+  &.entry-header { /* project-page and entry header */
+    background-color: black;
+
+    a.scroll-arrow {
+      position: absolute;
+      bottom: 2em;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+  }
+
+  /* Gallery sub-page */
+  &.project-gallery {
+    .card-columns {
+
+      @include media-breakpoint-only(sm) {
+        column-count: 1;
+      }
+      @include media-breakpoint-only(md) {
+        column-count: 2;
+      }
+      @include media-breakpoint-only(lg) {
+        column-count: 3;
+      }
+      @include media-breakpoint-only(xl) {
+        column-count: 3;
+      }
+    }
+
+    .card {
+      border: none;
+    }
+  }
+
 }
 
-/* The entry sub-page */
-.project-page.entry-header { /* project-page and entry header */
-	background-color: rgba(0,0,0,1);
-}
 
-/* Gallery sub-page */
-.project-gallery .card {
-	border: none;
-}
+
 
 /******************************************************
  ******************* BIOGRAPHY PAGE *******************
@@ -403,7 +481,9 @@ h2.responsive-text{
 	display:flex;
   align-items: center; /* Horinzontal */
   justify-content: center; /* Vertical */
-	flex-direction: column;
+  flex-direction: column;
+  
+  background-color: white;    
 }
 
 /* Reduce inner-paragraph spacing */
@@ -422,7 +502,8 @@ h2.responsive-text{
  ******************************************************/
 /* By default, class .wrapper includes 30px padding */
 #page-contact-wrapper {
-	padding: 0;
+  padding: 0;
+  background-color: white;
 }
 
 /* 100% view port size */
@@ -434,6 +515,8 @@ h2.responsive-text{
 	/* Required to center the <h1> */
 	display:flex;
   align-items: center; /* Vertical */
+
+  will-change: opacity;  
 }
 
 /* Reduce inner-paragraph spacing */
@@ -461,13 +544,274 @@ h2.responsive-text{
 
 
 /******************************************************
+ *******************     404 PAGE   *******************
+ ******************************************************/
+ #error-404-wrapper {
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  align-items:center;  /* Vertical */
+  justify-content: center; /* Horizontal */
+}
+
+
+/******************************************************
+ ******************    SEARCH PAGE   ******************
+ ******************************************************/
+#search-wrapper {
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  align-items:center;  /* Vertical */
+  justify-content: center; /* Horizontal */
+}
+
+
+/******************************************************
+ *******************  MOBILE NAVIGATION BAR  **********
+ ******************************************************/
+
+/* Top navigation bar */
+#wrapper-index .navbar-mobile {
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  //background-color: theme-color("primary");
+  background-color: rgb(0,0,0); /* Black fallback color */
+  background-color: rgba(0,0,0, 0.7); /* Black w/opacity */
+  
+  //color: black;
+  z-index: $zindex-sticky;
+
+  // Preventt text wrapping below toggler. We want it to stick
+  flex-wrap: nowrap;
+
+  // Set text height responsive for very small devices
+  @include media-breakpoint-down(xs){
+    .navbar-title {
+      font-size: 6.8vw; // 1 line until iphone-4
+    }  
+  }
+  
+
+ @include media-breakpoint-up(md) {
+  //background-color: theme-color("primary");
+  background-color: rgba(0,0,0,0); /* Black w/opacity */
+  position: absolute;
+
+  & .navbar-toggler {
+    visibility: hidden;
+  }
+
+  /* Title  */
+  .navbar-title {
+    padding-right: 1em;
+  }
+ }
+}
+
+/* Navbar menu modal */
+.fullscreen {
+  .modal-dialog {
+    margin: 0 0 0 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 100%;
+    padding: 0;
+    color: #333;
+    background: rgba(255, 255, 255, 0.97); /* Default-color */
+  }
+
+  .modal-content {
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    border: 0;
+    border-radius: 0;
+    background-color:inherit;
+    overflow:auto;
+  }
+} 
+
+
+/******************************************************
+ *******************     LOADERS    *******************
+ ******************************************************/
+
+ /* First page loader */
+#loader-opener {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  z-index: $zindex-tooltip;
+  display: flex;
+  align-items:center;  /* Vertical */
+  justify-content: center; /* Horizontal */
+}
+
+/* Disabled */
+#loader-opener {
+  display:none;
+}
+
+/* Page change loader */
+#loader-spinner {
+  position: fixed;
+  top: -9999px;
+  left: 0;
+  //display: none;
+  overflow: hidden;
+
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+  
+  will-change: opacity;  
+  z-index: $zindex-tooltip;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  
+}
+
+/******************************************************
  *******************  DEVELOPMENT  ********************
  ******************************************************/
 
-* {
+ * {
 	//background-color: rgba(123,120,120,0.2);
 	//border: 1px solid black;
  }
 
 
- 
+body {
+  background-color: $body-background-color;
+  //z-index: -2;
+}
+
+
+/* Make the content (below the header) non-transparent
+   so that it hides the header when scrolling.
+   We create a full width background bellow */
+.home-page #content {
+    //background-color: yellow;
+  }
+  
+
+.home-page .parallax {
+}
+
+.home-page .parallax .parallax-fixed {
+  max-width: 1400px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1!important; // just up the background 
+}
+
+/* Limit page title to max-width */
+#wrapper-index .navbar-mobile {
+  max-width: 1400px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.home-page > .container-fluid {
+  max-width: 1400px;
+  
+  position: relative;
+  z-index: 100;
+
+  background-color: $grid-background-color;
+}
+
+
+/* The parent of img with -mix-blend-mode must have the background color we
+   want to blend */
+.home-page .custom-logo-link {
+  background-color: $grid-background-color;
+}
+
+.grid-item {
+  background-color: $grid-background-color;
+
+  a {
+    mix-blend-mode: multiply;
+  }
+}
+
+
+// Nav links underlined 
+.home-page .nav-pills .menu-item-left .nav-link{
+  // Reset coordinates
+  position: relative;
+
+  color: $navbar-text-color;
+
+
+  @include media-breakpoint-up(md) {
+    padding-left: 0; // Remove default behavior
+    padding-right: 2em; // 1.5 em for border, 0.5em for separation
+
+    &::after {
+      content: " "; // Make visible
+      position: absolute;
+      bottom: 0; // Bottom
+      left: 0; // Horizontal center absolute positioned element
+      right: 0.5em;
+      border-bottom: solid 2px $navbar-text-color;      
+    }
+  }
+
+}
+
+
+// Same for right
+.home-page .nav-pills .menu-item-right .nav-link{
+  // Reset coordinates
+  position: relative;
+
+  color: $navbar-text-color;
+
+  @include media-breakpoint-up(md) {
+
+    padding-right: 0; // Remove default behavior
+    padding-left: 2em; // 1.5 em for border, 0.5em for separation
+    
+    &::after {
+      content: " "; // Make visible
+      position: absolute;
+      bottom: 0; // Bottom
+      right: 0; // Horizontal center absolute positioned element
+      left: 0.5em;
+      border-bottom: solid 2px $navbar-text-color;      
+    }
+  }
+
+}
+
+
+// REmove nav-pills background
+.home-page .nav-pills .nav-link.active {
+  background-color:inherit; // Remove black background 
+  color: rgba(0,0,0,0.9);
+
+  &::after {
+   border-color: rgba(0,0,0,0.9);
+  }
+
+  // By default, it goes to back and white text
+  &:hover {
+    //display: none;
+    color: inherit;
+  }
+}
+
+

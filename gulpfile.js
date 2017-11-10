@@ -13,7 +13,7 @@ var browserSyncWatchFiles = [
     './*.php',
     // MDBUS4 SPECIAL
     './loop-templates/*.php', // For loop-templates
-    // REMOVED: NOW IN [SCRIPTS] '.js/mdb_us4.js' //TODO: minify this file. DONE
+    // REMOVED: NOW IN [SCRIPTS] '.js/mdb_us4.js'
 ];
 // browser-sync options
 // see: https://www.browsersync.io/docs/options/

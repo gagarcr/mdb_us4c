@@ -9163,14 +9163,24 @@ a.skip-link {
 
 /* Black background */
 .bg-black {
-  background-color: black; }
+  background-color: black !important;
+  background-color: black !important; }
+
+/* Strong text */
+.text-strong {
+  font-weight: bold; }
 
 /******************************************************
  *********************** GLOBAL ***********************
  ******************************************************/
 /* Allow <html> margins, etc. Resests corrdinate */
+html {
+  overflow-y: scroll; }
+
 body {
-  position: relative; }
+  position: relative;
+  padding-right: 0 !important;
+  /* Prevent modal style, we use fixed scrollbars */ }
 
 /* Remove any link decoration */
 a {
@@ -9185,23 +9195,15 @@ a {
 /* Special "scroll arrow" to nevigate between sub-pages */
 a.scroll-arrow {
   font-size: 35px;
-  color: #f8f9fa;
+  color: white;
   width: 40px;
   height: 40px;
   line-height: 35px;
   border-radius: 50%;
   border: 0px solid white;
   display: block;
-  margin: 0 auto;
-  position: absolute;
-  bottom: 2em;
-  left: 50%;
-  z-index: 1029;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
+  margin-top: 1em;
+  margin-bottom: 0;
   opacity: 1;
   box-sizing: border-box;
   text-align: top;
@@ -9214,11 +9216,14 @@ a.scroll-arrow i {
 /* Cross arrow.  */
 .cross-arrow {
   position: fixed;
-  top: 2em;
-  bottom: auto;
+  top: 1em;
   right: 1em;
-  left: auto;
+  z-index: 1070;
   mix-blend-mode: difference; }
+  .cross-arrow a {
+    color: white;
+    opacity: 1;
+    mix-blend-mode: difference; }
 
 /* Resposive text */
 h1.responsive-text {
@@ -9226,6 +9231,9 @@ h1.responsive-text {
 
 h2.responsive-text {
   font-size: 2vw; }
+
+h3.responsive-text {
+  font-size: 1vw; }
 
 /* Layout, no margins */
 #single-wrapper {
@@ -9290,12 +9298,11 @@ h2.responsive-text {
   padding: 0;
   /*max-height: 800px;*/
   overflow: hidden;
-  position: relative;
-  z-index: -1; }
+  position: relative; }
 
 /* Increase navbar top distance to match bottoms cards margin */
 .home-page #navbar-selector {
-  padding-top: 16px; }
+  padding: 16px 0 0 0; }
 
 .home-page .parallax .parallax-fixed {
   width: 100%;
@@ -9306,7 +9313,6 @@ h2.responsive-text {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
   will-change: transform;
   /* creates a new paint layer */ }
 
@@ -9322,12 +9328,6 @@ h2.responsive-text {
     .admin-bar .home-page .parallax .parallax-fixed {
       margin-top: 32px; } }
 
-/* Make the content (below the header) non-transparent
-   so that it hides the header when scrolling.
-   We create a full width background bellow */
-.home-page #content {
-  background-color: white; }
-
 /* NAVIGATION BAR */
 /* Fix nav-pills hover color */
 .home-page .nav-pills .nav-link.active {
@@ -9337,14 +9337,15 @@ h2.responsive-text {
 .home-page .nav-pills .nav-link.active:hover {
   color: #f8f9fa; }
 
-/* Portfolio filter buttons */
-.home-page .navbar-filter {
-  background-color: #f8f9fa;
-  margin-top: 0; }
+.home-page .navbar-nav.nav-fill .nav-item {
+  flex: none;
+  /* Justify pils, they do not grow*/ }
 
 /* Custom logo width */
 .home-page .custom-logo-link > img {
-  width: 50px;
+  width: 75px;
+  margin-left: 1em;
+  margin-right: 1em;
   mix-blend-mode: multiply; }
 
 /* PROJECT GRID */
@@ -9358,7 +9359,8 @@ h2.responsive-text {
   /* Hover projects.
    .card-img-overlay is the overall hover. A .card-img is located below
    that acts as a background for the hover (that can be blurred) */
-  /* Position card-title in the center */ }
+  /* Position card-title in the center */
+  /* Text-only project */ }
   .home-page .card.grid-item .overlay {
     position: absolute;
     top: auto;
@@ -9406,12 +9408,25 @@ h2.responsive-text {
     opacity: 1; }
   .home-page .card.grid-item .card-a {
     overflow: hidden;
-    background-color: white;
     position: relative; }
   .home-page .card.grid-item .card-title {
     position: relative;
     margin: 0;
     z-index: 4; }
+  .home-page .card.grid-item.card-project-text {
+    background-color: white; }
+    .home-page .card.grid-item.card-project-text .card-header {
+      border-bottom: 0;
+      font-weight: 100;
+      background-color: inherit; }
+    .home-page .card.grid-item.card-project-text .card-title {
+      font-weight: 800;
+      line-height: 1.4; }
+    .home-page .card.grid-item.card-project-text .card-body {
+      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+      border-width: 10px;
+      transition: background-color 0.25s ease; }
 
 /* FOOTER */
 /* Adding some contrast background color to footer full widget */
@@ -9422,16 +9437,21 @@ h2.responsive-text {
   padding: 0.5em 0; }
 
 /* Separate footer paragraphs */
-#footer-full-content .textwidget {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  /* Remove parent col padding */
-  margin-left: -15px;
-  margin-right: -15px; }
-  #footer-full-content .textwidget p {
-    margin: .25em 0;
-    padding: 0; }
+#footer-full-content {
+  /* Only in sm the margins reduces */ }
+  @media (min-width: 576px) {
+    #footer-full-content .footer-widget {
+      padding-left: 0;
+      padding-right: 0; } }
+  #footer-full-content .textwidget {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 0; }
+    #footer-full-content .textwidget p {
+      margin-bottom: .25em;
+      margin-top: .25em;
+      padding: 0; }
 
 /******************************************************
  ******************** PROJECT PAGE ********************
@@ -9448,16 +9468,30 @@ h2.responsive-text {
   flex-direction: column;
   /* We try to divide each sub page with proper margins */
   padding-bottom: 4em;
-  padding-top: 4em; }
-
-/* The entry sub-page */
-.project-page.entry-header {
-  /* project-page and entry header */
-  background-color: black; }
-
-/* Gallery sub-page */
-.project-gallery .card {
-  border: none; }
+  padding-top: 4em;
+  background-color: white;
+  /* Header sub-page */
+  /* Gallery sub-page */ }
+  .project-page.entry-header {
+    /* project-page and entry header */
+    background-color: black; }
+    .project-page.entry-header a.scroll-arrow {
+      position: absolute;
+      bottom: 2em;
+      left: 0;
+      right: 0;
+      margin: 0 auto; }
+  @media (min-width: 576px) and (max-width: 767px) {
+    .project-page.project-gallery .card-columns {
+      column-count: 1; } }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .project-page.project-gallery .card-columns {
+      column-count: 2; } }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .project-page.project-gallery .card-columns {
+      column-count: 3; } }
+  .project-page.project-gallery .card {
+    border: none; }
 
 /******************************************************
  ******************* BIOGRAPHY PAGE *******************
@@ -9475,7 +9509,8 @@ h2.responsive-text {
   /* Horinzontal */
   justify-content: center;
   /* Vertical */
-  flex-direction: column; }
+  flex-direction: column;
+  background-color: white; }
 
 /* Reduce inner-paragraph spacing */
 .biography-page p {
@@ -9490,7 +9525,8 @@ h2.responsive-text {
  ******************************************************/
 /* By default, class .wrapper includes 30px padding */
 #page-contact-wrapper {
-  padding: 0; }
+  padding: 0;
+  background-color: white; }
 
 /* 100% view port size */
 .contact-page {
@@ -9502,7 +9538,8 @@ h2.responsive-text {
   /* Required to center the <h1> */
   display: flex;
   align-items: center;
-  /* Vertical */ }
+  /* Vertical */
+  will-change: opacity; }
 
 /* Reduce inner-paragraph spacing */
 .contact-page p {
@@ -9526,5 +9563,188 @@ h2.responsive-text {
   max-width: 300px; }
 
 /******************************************************
+ *******************     404 PAGE   *******************
+ ******************************************************/
+#error-404-wrapper {
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  /* Vertical */
+  justify-content: center;
+  /* Horizontal */ }
+
+/******************************************************
+ ******************    SEARCH PAGE   ******************
+ ******************************************************/
+#search-wrapper {
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  /* Vertical */
+  justify-content: center;
+  /* Horizontal */ }
+
+/******************************************************
+ *******************  MOBILE NAVIGATION BAR  **********
+ ******************************************************/
+/* Top navigation bar */
+#wrapper-index .navbar-mobile {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: black;
+  /* Black fallback color */
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Black w/opacity */
+  z-index: 1020;
+  flex-wrap: nowrap; }
+  @media (max-width: 575px) {
+    #wrapper-index .navbar-mobile .navbar-title {
+      font-size: 6.8vw; } }
+  @media (min-width: 768px) {
+    #wrapper-index .navbar-mobile {
+      background-color: transparent;
+      /* Black w/opacity */
+      position: absolute;
+      /* Title  */ }
+      #wrapper-index .navbar-mobile .navbar-toggler {
+        visibility: hidden; }
+      #wrapper-index .navbar-mobile .navbar-title {
+        padding-right: 1em; } }
+
+/* Navbar menu modal */
+.fullscreen .modal-dialog {
+  margin: 0 0 0 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  padding: 0;
+  color: #333;
+  background: rgba(255, 255, 255, 0.97);
+  /* Default-color */ }
+
+.fullscreen .modal-content {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  border: 0;
+  border-radius: 0;
+  background-color: inherit;
+  overflow: auto; }
+
+/******************************************************
+ *******************     LOADERS    *******************
+ ******************************************************/
+/* First page loader */
+#loader-opener {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  z-index: 1070;
+  display: flex;
+  align-items: center;
+  /* Vertical */
+  justify-content: center;
+  /* Horizontal */ }
+
+/* Disabled */
+#loader-opener {
+  display: none; }
+
+/* Page change loader */
+#loader-spinner {
+  position: fixed;
+  top: -9999px;
+  left: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+  will-change: opacity;
+  z-index: 1070;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+/******************************************************
  *******************  DEVELOPMENT  ********************
  ******************************************************/
+body {
+  background-color: #dedede; }
+
+/* Make the content (below the header) non-transparent
+   so that it hides the header when scrolling.
+   We create a full width background bellow */
+.home-page .parallax .parallax-fixed {
+  max-width: 1400px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1 !important; }
+
+/* Limit page title to max-width */
+#wrapper-index .navbar-mobile {
+  max-width: 1400px;
+  left: 50%;
+  transform: translateX(-50%); }
+
+.home-page > .container-fluid {
+  max-width: 1400px;
+  position: relative;
+  z-index: 100;
+  background-color: whitesmoke; }
+
+/* The parent of img with -mix-blend-mode must have the background color we
+   want to blend */
+.home-page .custom-logo-link {
+  background-color: whitesmoke; }
+
+.grid-item {
+  background-color: whitesmoke; }
+  .grid-item a {
+    mix-blend-mode: multiply; }
+
+.home-page .nav-pills .menu-item-left .nav-link {
+  position: relative;
+  color: #979797; }
+  @media (min-width: 768px) {
+    .home-page .nav-pills .menu-item-left .nav-link {
+      padding-left: 0;
+      padding-right: 2em; }
+      .home-page .nav-pills .menu-item-left .nav-link::after {
+        content: " ";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0.5em;
+        border-bottom: solid 2px #979797; } }
+
+.home-page .nav-pills .menu-item-right .nav-link {
+  position: relative;
+  color: #979797; }
+  @media (min-width: 768px) {
+    .home-page .nav-pills .menu-item-right .nav-link {
+      padding-right: 0;
+      padding-left: 2em; }
+      .home-page .nav-pills .menu-item-right .nav-link::after {
+        content: " ";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0.5em;
+        border-bottom: solid 2px #979797; } }
+
+.home-page .nav-pills .nav-link.active {
+  background-color: inherit;
+  color: rgba(0, 0, 0, 0.9); }
+  .home-page .nav-pills .nav-link.active::after {
+    border-color: rgba(0, 0, 0, 0.9); }
+  .home-page .nav-pills .nav-link.active:hover {
+    color: inherit; }

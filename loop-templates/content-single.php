@@ -28,37 +28,55 @@
   <!-- Technical description page -->	
   <?php if (get_field('technical_description_enable')): ?>
 
+  <?php
+  
+  $technical_image = get_field('technical_description_image');
+  
+  if ($technical_image) {
+    $technical_text_class = 'text-lg-left col-12 col-lg-3';
+  }
+  else {
+    $technical_text_class = 'col-12 col-lg-8';    
+  }
+  
+  ?>
+
     <div class="project-page project-technical" id="sectionTechnical">
 
       <div class="container">
 
         <div class="row justify-content-center align-items-center text-justify">
 
-          <div class="entry-technical text-center text-lg-left col-12 col-md-3">
+          <div class="entry-technical text-center <?php echo $technical_text_class ?>">
 
-            <h4 class="entry-title text-uppercase text-center text-lg-left pb-3"><?php the_field('technical_description_title'); ?></h4>
+            <h4 class="entry-title text-uppercase pb-3"><?php the_field('technical_description_title'); ?></h4>
 
             <?php the_field('technical_description'); ?>
 
           </div><!-- .entry-technical .col -->
 
-          <div class="entry-technical-img col-md-5 pl-md-5">
+          <?php if ($technical_image): ?>
 
-            <?php 
-              $id = get_field('technical_description_image');
-              // Only add if user created it
-              if ($id):
-                $thumbnail_image_url = wp_get_attachment_image_src($id, 'large');
-                if ($thumbnail_image_url):
-                  $thumbnail_image_url = $thumbnail_image_url[0]; // Fist array field is src.	
-                  ?>
-                  <img class="img-fluid rounded" src="<?php echo $thumbnail_image_url; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"></img>
-                  <?php
+            <div class="entry-technical-img col-12 col-lg-5 pl-lg-5">
+
+              <?php 
+                $id = get_field('technical_description_image');
+                // Only add if user created it
+                if ($id):
+                  $thumbnail_image_url = wp_get_attachment_image_src($id, 'large');
+                  if ($thumbnail_image_url):
+                    $thumbnail_image_url = $thumbnail_image_url[0]; // Fist array field is src.	
+                    ?>
+                    <img class="img-fluid rounded" src="<?php echo $thumbnail_image_url; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"></img>
+                    <?php
+                  endif;
                 endif;
-              endif;
-            ?>
+              ?>
 
-          </div><!-- .entry-technical-img .col -->
+            </div><!-- .entry-technical-img .col -->
+
+          <?php endif; ?>
+
         </div><!-- .row -->
       </div> <!-- .container -->
 

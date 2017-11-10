@@ -9428,6 +9428,26 @@ h3.responsive-text {
       border-width: 10px;
       transition: background-color 0.25s ease; }
 
+/* PAGINATION */
+.pagination {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center; }
+  .pagination li {
+    margin-left: 0.5em;
+    margin-right: 0.5em; }
+
+.pagination-load-infinite {
+  display: none;
+  /* hidden by default */
+  text-align: center; }
+  .pagination-load-infinite .infinite-scroll-request {
+    padding-top: 2em; }
+
+/* Add bottom margin before footer */
+.home-page #content {
+  padding-bottom: 2em; }
+
 /* FOOTER */
 /* Adding some contrast background color to footer full widget */
 #wrapper-footer-full,

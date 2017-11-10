@@ -176,6 +176,10 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
           <!-- The pagination component -->
           <?php understrap_pagination(); ?>
 
+          <div class="pagination-load-infinite"> 
+            <p class="infinite-scroll-request"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i></p>
+          </div>
+
         </div><!-- #primary -->
 
         <!-- Do the right sidebar check -->

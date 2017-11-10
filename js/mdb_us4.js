@@ -5,6 +5,16 @@ barbaEnabled = true;
 isotopeEnabled = true;
 mdb_debug = true;
 
+/**
+ * --------------------------------------------------------------------------
+ * Infinite-Scroll
+ * --------------------------------------------------------------------------
+ */
+if (typeof InfiniteScroll === 'undefined') {
+  throw new Error('MDB_US4 theme require Infinite-Scroll');
+}
+
+
 
 /**
  * --------------------------------------------------------------------------
@@ -32,28 +42,6 @@ function isotopeStart($) {
         if (grid.length < 1) {
             throw new Error('Error finding grid!');
         }
-
-        /* Link filter button with behavior */
-        $('.filter-button-group').on( 'click', 'a', function() {   
-            // Check if is already active
-            if ($(this).hasClass("active")){
-                $(this).removeClass("active");
-                grid.isotope({ filter: "*" });
-            }
-            else {
-                // Remove the "active" class of the other buttons
-                $('.filter-button-group').find("a.active").each( function () {
-                    $(this).removeClass("active");
-                });
-                // Set to this button
-                $(this).addClass("active");
-                // Get the filter
-                var filterValue = $(this).attr('data-filter');   
-                console.log("Filter: " + filterValue);             
-                grid.isotope({ filter: filterValue });
-            }
-        });
-
 
         // Initialize isotope
         grid.isotope({
@@ -84,8 +72,57 @@ function isotopeStart($) {
         grid.imagesLoaded(function(){
           console.log("All images loaded");
         });
-            
+
+        /* Link filter button with behavior */
+        $('.filter-button-group').on( 'click', 'a', function() {   
+          // Check if is already active
+          if ($(this).hasClass("active")){
+              $(this).removeClass("active");
+              grid.isotope({ filter: "*" });
+          }
+          else {
+              // Remove the "active" class of the other buttons
+              $('.filter-button-group').find("a.active").each( function () {
+                  $(this).removeClass("active");
+              });
+              // Set to this button
+              $(this).addClass("active");
+              // Get the filter
+              var filterValue = $(this).attr('data-filter');   
+              console.log("Filter: " + filterValue);             
+              grid.isotope({ filter: filterValue });
+          }
+        });
+
         console.log("Isotope initialized OK");
+
+
+        // Infinite-Scroll
+        var mainContainer = $('#main .row');
+        var iso = grid.data('isotope');
+        
+
+        if (mainContainer){
+          mainContainer.infiniteScroll({
+            // options
+            history: 'push',
+            hideNav: '.pagination',     
+            status: '.pagination-load-infinite',
+            path: '.page-item-next a',
+            append: '.post',
+            outlayer: iso,
+          }); // End infiniteScroll
+
+          // Integrate google Analitics
+          if (typeof ga != 'undefined') {
+            mainContainer.on( 'history.infiniteScroll', function() {
+              ga( 'set', 'page', location.pathname );
+              ga( 'send', 'pageview' );
+            });
+          }
+
+        } // End if mainContainer
+          
     }
 }
 
@@ -327,9 +364,7 @@ jQuery(document).ready(function( $ ) {
             // Start prefecth 
             console.log("Barba prefetch init");
             Barba.Prefetch.init();
-
-            // Call common JS initialization functions
-            mdb_us4_initFunctions( $ );            
+         
         }
         catch(err) {
             console.log("Could not initialize Barba: " + err);
@@ -348,6 +383,7 @@ jQuery(document).ready(function( $ ) {
 
 // Each time a new page is loaded by PJAX, show a log
 Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {    
+  console.log("New page ready");
     var $ = jQuery;
     
     if (mdb_debug) {
@@ -372,26 +408,30 @@ Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container
 // Common JS initialization functions.
 // Each time a new page is loaded, this should be called
 function mdb_us4_initFunctions( $ ){
+  console.log("Start common functions");
 
   // Start smooth scroll button (ex: single post arrow)
   mdb_us4_scrollSmooth( $ );
    
   // Start tooltips
   $('[data-toggle="tooltip"]').tooltip();    
+
 };
 
 // Fallback function that loads everithing done by Barba.js.
 function mdb_us4_fallback ( $ ) {
-    // Start isotope 
-    try {
-        isotopeStart($); // isotopeEnable check inside function
-        console.log("Isotope initialized");
-    }     
-    catch(err) {
-        console.log("Could not initialize isotope: " + err);
-    }
+  console.log("Start fallback");
 
-    mdb_us4_initFunctions($);
+  // Start isotope 
+  try {
+      isotopeStart($); // isotopeEnable check inside function
+      console.log("Isotope initialized");
+  }     
+  catch(err) {
+      console.log("Could not initialize isotope: " + err);
+  }
+
+  mdb_us4_initFunctions($);
 }; 
 
 // Initialize the scroll down arrow behavior

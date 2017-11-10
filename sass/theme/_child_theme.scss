@@ -257,14 +257,14 @@ h3.responsive-text{
 
 /* PROJECT GRID */
 .home-page .grid {
-    /* Enable HW acceleration */
-    transform:translate3d(0,0,0);
+  /* Enable HW acceleration */
+  transform:translate3d(0,0,0);
 }
 
 /* Remove card border. '.' = and ) */
 .home-page .card.grid-item {
   border: none;
-  
+
   /* Hover projects.
    .card-img-overlay is the overall hover. A .card-img is located below
    that acts as a background for the hover (that can be blurred) */
@@ -365,6 +365,34 @@ h3.responsive-text{
 
 }
 
+/* PAGINATION */
+.pagination {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+
+  li {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+}
+
+
+.pagination-load-infinite  {
+  display: none; /* hidden by default */
+  //border-top: 1px solid #DDD;
+  text-align: center;
+  //color: #777;
+
+  .infinite-scroll-request {
+    padding-top: 2em;    
+  }
+}
+
+/* Add bottom margin before footer */
+.home-page #content {
+  padding-bottom: 2em;  
+}
 
 /* FOOTER */
 /* Adding some contrast background color to footer full widget */
@@ -373,6 +401,7 @@ h3.responsive-text{
   background-color: theme-color('primary'); 
   color: theme-color('secondary'); 
   padding: 0.5em 0; 
+  
 };
 
 /* Separate footer paragraphs */

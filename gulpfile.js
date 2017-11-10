@@ -189,6 +189,7 @@ gulp.task('scripts', function() {
         basePaths.dev + 'js/barba.js',
         basePaths.dev + 'js/imagesloaded.pkgd.js',
         basePaths.dev + 'js/isotope.pkgd.js',
+        basePaths.dev + 'js/infinite-scroll.pkgd.js',
         './js/mdb_us4.js',
         
     ];
@@ -269,6 +270,10 @@ gulp.task('copy-assets', function() {
 
 // Copy Barba.js files
     gulp.src(basePaths.node + 'barba.js/dist/*.js')
+        .pipe(gulp.dest(basePaths.dev + '/js'));
+
+// Copy Infinite scroll files
+    gulp.src(basePaths.node + 'infinite-scroll/dist/*.js')
         .pipe(gulp.dest(basePaths.dev + '/js'));
 
 // Copy Custom theme script not neccesary

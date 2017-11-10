@@ -28,7 +28,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 
   <!-- Top menu -->
   <nav class="navbar navbar-dark navbar-mobile sticky-top" >
-    <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#navbar-modal-sm" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#navbar-modal-sm" aria-controls="navbar-modal-sm" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
@@ -73,21 +73,21 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 
       <!-- Navbar -->
       <div class="row">
-        <nav class="w-100 navbar sticky-top navbar-expand-md navbar-inverse" id="navbar-selector">
+        <nav class="w-100  navbar sticky-top navbar-expand-md navbar-inverse" id="navbar-selector">
 
           <!-- The WordPress Menu goes here. Only on >sm screen. Add selector for filter js, nav pills make button-like -->
-          <ul id="filter-menu" class="navbar-nav nav-fill filter-button-group nav-pills d-flex justify-content-between w-100"> 
+          <ul id="filter-menu" class="navbar-nav nav-fill filter-button-group nav-pills w-100 d-flex justify-content-between "> 
 
             <!-- Left part -->
             <?php		
               $menu_items = mdb_us4c_get_menu('primary');
               foreach ($menu_items as $menu_item) {
-                echo ("<li class='d-none d-md-flex align-items-center menu-item menu-item-type-taxonomy menu-item-object-category nav-item text-uppercase'><a class='w-100 nav-link' href='" . $menu_item->url . "' >" . $menu_item->title . "</a></li>");							
+                echo ("<li class='d-none d-md-flex align-items-center justify-content-center menu-item menu-item-left menu-item-type-taxonomy menu-item-object-category nav-item text-uppercase'><a class=' nav-link' href='" . $menu_item->url . "' >" . $menu_item->title . "</a></li>");							
               }
             ?>
 
             <!-- Center part -->
-            <li class='menu-item menu-item-type-taxonomy menu-item-object-category nav-item '>				
+            <li class='menu-item menu-item-type-taxonomy menu-item-object-category nav-item'>				
               <!-- Your site title as branding in the menu -->
               <?php if ( ! has_custom_logo() ) { ?>
 
@@ -101,7 +101,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
                 
                 <?php endif; ?>
               <?php } else { ?>
-                <a class="navbar-brand custom-logo-link d-none d-md-block w-100" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
+                <a class="navbar-brand custom-logo-link d-none d-md-block " rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
                 <?php
                   $custom_logo_id = get_theme_mod( 'custom_logo' );
                   $logo = wp_get_attachment_image_src( $custom_logo_id , 'thumbnail' );
@@ -115,7 +115,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
             <?php		
               $menu_items = mdb_us4c_get_menu('category_filter');
               foreach ($menu_items as $menu_item) {
-                echo ("<li class='align-items-center d-flex menu-item menu-item-type-taxonomy menu-item-object-category nav-item text-uppercase'><a class='w-100 nav-link' data-filter='.category-" . $menu_item->title . "' >" . $menu_item->title . "</a></li>");							
+                echo ("<li class=' d-flex  align-items-center justify-content-center menu-item menu-item-right menu-item-type-taxonomy menu-item-object-category nav-item text-uppercase'><a class=' nav-link' data-filter='.category-" . $menu_item->title . "' >" . $menu_item->title . "</a></li>");							
               }
               
               // Create filter for isotope
@@ -128,7 +128,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
               $other_filter .= ")";
 
               // Add "Other"
-              echo ("<li class='align-items-center d-flex menu-item menu-item-type-taxonomy menu-item-object-category nav-item text-uppercase'><a class='w-100 nav-link' data-filter='" . $other_filter . "' >Other</a></li>");														
+              echo ("<li class='d-flex align-items-center justify-content-center menu-item menu-item-right menu-item-type-taxonomy menu-item-object-category nav-item text-uppercase'><a class=' nav-link' data-filter='" . $other_filter . "' >Other</a></li>");														
             ?>
           </ul>
         </nav><!-- .site-navigation -->

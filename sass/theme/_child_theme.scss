@@ -499,6 +499,10 @@ h3.responsive-text{
 /******************************************************
  ******************* BIOGRAPHY PAGE *******************
  ******************************************************/
+#page-biography-wrapper {
+  padding: 0;
+}
+
 
 /* Biography page wrapper. Creates individual pages */
 .biography-page {
@@ -772,7 +776,7 @@ body {
   background-color: $grid-background-color;
 
   a {
-    mix-blend-mode: multiply;
+    //mix-blend-mode: multiply;
   }
 }
 

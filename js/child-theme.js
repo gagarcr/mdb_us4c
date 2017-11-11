@@ -11815,6 +11815,7 @@ return ImagesLoaded;
 */
 barbaEnabled = true;
 isotopeEnabled = true;
+infiniteScrollEnabled = true;
 mdb_debug = true;
 
 /**
@@ -11825,6 +11826,52 @@ mdb_debug = true;
 if (typeof InfiniteScroll === 'undefined') {
   throw new Error('MDB_US4 theme require Infinite-Scroll');
 }
+
+function infiniteScrollStart($) {  
+  if (infiniteScrollEnabled) {
+    // Infinite-Scroll
+    grid = $('.row.grid');
+    var iso = grid.data('isotope');
+
+    if (grid){
+      console.log("[InfiniteScroll] Initialization start");
+      
+      // Required in case re-initialization.
+      if (typeof grid.data('infiniteScroll') !== 'undefined'){
+        grid.infiniteScroll('destroy');            
+      }
+      
+      grid.infiniteScroll({
+        // options
+        history: false,
+        hideNav: '.pagination',     
+        status: '.pagination-load-infinite',
+        path: '.page-item-next a',
+        append: '.post',
+        checkLastPage: true,
+        outlayer: iso,
+        debug: false,
+        //onInit: function() {
+        //  console.log("[InfiniteScroll] Initialization complete");
+        //
+        //  this.on( 'append', function() {
+        //    console.log("[InfiniteScroll] Append")
+        //  });
+        //},
+      }); // End infiniteScroll
+
+      // Integrate google Analitics
+      if (typeof ga !== 'undefined') {
+        grid.on( 'history.infiniteScroll', function() {
+          ga( 'set', 'page', location.pathname );
+          ga( 'send', 'pageview' );
+        });
+      }          
+    } // End if mainContainer
+          
+  }
+}
+
 
 
 
@@ -11847,97 +11894,68 @@ if (typeof imagesLoaded === 'undefined'){
 // Every time we enter in home view, we should call this function so that the
 // cards are properly arranged
 function isotopeStart($) {  
-    if (isotopeEnabled) {
-        /* Start Isotope */
-        grid = $('.grid');
+  if (isotopeEnabled) {
+    /* Start Isotope */
+    grid = $('.row.grid');
 
-        if (grid.length < 1) {
-            throw new Error('Error finding grid!');
-        }
-
-        // Initialize isotope
-        grid.isotope({
-            // set itemSelector so .grid-sizer is not used in layout
-            itemSelector: '.grid-item',
-            percentPosition: true,
-            filter : '*',
-            transitionDuration: '.4s',
-            getSortData: {
-              order: '[order] parseInt' // Attribute [order]
-            },
-            sortBy : 'order',
-            //layoutMode: 'packery'
-            masonry: {
-                // use element for option
-                columnWidth: '.grid-sizer',
-                gutter: 0,
-            }
-        }) // End grid.isotope
-
-        // Each time a image is loaded, call layout
-        grid.imagesLoaded().progress( function() {
-            grid.isotope('layout');
-            console.log("New image loaded .... layout");
-        });
-
-        // When all images are loaded, call layout
-        grid.imagesLoaded(function(){
-          console.log("All images loaded");
-        });
-
-        /* Link filter button with behavior */
-        $('.filter-button-group').on( 'click', 'a', function() {   
-          // Check if is already active
-          if ($(this).hasClass("active")){
-              $(this).removeClass("active");
-              grid.isotope({ filter: "*" });
-          }
-          else {
-              // Remove the "active" class of the other buttons
-              $('.filter-button-group').find("a.active").each( function () {
-                  $(this).removeClass("active");
-              });
-              // Set to this button
-              $(this).addClass("active");
-              // Get the filter
-              var filterValue = $(this).attr('data-filter');   
-              console.log("Filter: " + filterValue);             
-              grid.isotope({ filter: filterValue });
-          }
-        });
-
-        console.log("Isotope initialized OK");
-
-
-        // Infinite-Scroll
-        var mainContainer = $('#main .row');
-        var iso = grid.data('isotope');
-        
-
-        if (mainContainer){
-          mainContainer.infiniteScroll({
-            // options
-            history: 'push',
-            hideNav: '.pagination',     
-            status: '.pagination-load-infinite',
-            path: '.page-item-next a',
-            append: '.post',
-            outlayer: iso,
-          }); // End infiniteScroll
-
-          // Integrate google Analitics
-          if (typeof ga != 'undefined') {
-            mainContainer.on( 'history.infiniteScroll', function() {
-              ga( 'set', 'page', location.pathname );
-              ga( 'send', 'pageview' );
-            });
-          }
-
-        } // End if mainContainer
-          
+    if (grid.length < 1) {
+        throw new Error('[Isotope] Error finding grid!');
     }
-}
 
+    // Initialize isotope
+    grid.isotope({
+      // set itemSelector so .grid-sizer is not used in layout
+      itemSelector: '.grid-item',
+      percentPosition: true,
+      filter : '*',
+      transitionDuration: '.4s',
+      getSortData: {
+        order: '[order] parseInt' // Attribute [order]
+      },
+      sortBy : 'order',
+      //layoutMode: 'packery'
+      masonry: {
+          // use element for option
+          columnWidth: '.grid-sizer',
+          gutter: 0,
+      }
+    }) // End grid.isotope
+
+    // Each time a image is loaded, call layout
+    grid.imagesLoaded().progress( function() {
+      grid.isotope('layout');
+      console.log("[Isotope] New image loaded .... layout");
+    });
+
+    // When all images are loaded, call layout
+    grid.imagesLoaded(function(){
+      console.log("[Isotope] All images loaded");
+    });
+
+    /* Link filter button with behavior */
+    $('.filter-button-group').on( 'click', 'a', function() {   
+      // Check if is already active
+      if ($(this).hasClass("active")){
+        $(this).removeClass("active");
+        grid.isotope({ filter: "*" });
+      }
+      else {
+        // Remove the "active" class of the other buttons
+        $('.filter-button-group').find("a.active").each( function () {
+            $(this).removeClass("active");
+        });
+        // Set to this button
+        $(this).addClass("active");
+        // Get the filter
+        var filterValue = $(this).attr('data-filter');   
+        console.log("[Isotope] Filter: " + filterValue);             
+        grid.isotope({ filter: filterValue });
+      }
+    });
+
+    console.log("[Isotope] Initialized OK");
+  }
+}
 
 /**
  * --------------------------------------------------------------------------
@@ -11958,29 +11976,30 @@ function barbaStart( $ ) {
       namespace: 'index',
       onEnter: function() {
         // The new Container is ready and attached to the DOM.
-        console.log("Index enter");
+        console.log("[Barba] IndexView enter");
+        
+        try {
+          isotopeStart($);
+          console.log("[Barba] Isotope initialized.");
+          
+        }
+        catch(err) {
+            console.log("[Barba] Could not initilze isotope: " + err);
+        }
+
+        
+        
       },
       onEnterCompleted: function() {
           // The Transition has just finished.
-
-          try {
-            isotopeStart($);
-            /* TODO:
-            // bind event
-            $grid.isotope( 'on', 'arrangeComplete', function() {
-              console.log('arrange is complete');
-            });*/
-            console.log("Isotope initialized from barba");
-            
-        }
-        catch(err) {
-            console.log("Could not initilze isotope: " + err);
-        }
-
+          
+          // Start infinite scroll. AFTER ISOTOPE AND AFTER DOM COMPLETED
+          infiniteScrollStart( $ )
+  
           // Scroll to index
           if (typeof ($scrollHomeValue) !== 'undefined')
           {
-              console.log("Scroll to previous index: " + $scrollHomeValue);
+              console.log("[Barba] Scroll to previous index: " + $scrollHomeValue);
               window.scrollTo(0, $scrollHomeValue);
           }
       },
@@ -11988,7 +12007,7 @@ function barbaStart( $ ) {
           // A new Transition toward a new page has just started.
           // Store the scroll index 
           $scrollHomeValue = window.scrollY;
-          console.log("Store new scroll index: " + $scrollHomeValue);
+          console.log("[Barba] Store new scroll index: " + $scrollHomeValue);
       },
       onLeaveCompleted: function() {
           // The Container has just been removed from the DOM.
@@ -12064,14 +12083,14 @@ function barbaStart( $ ) {
       // Fallback in case transitionend is not suported 
       var fallbackTimeout = setTimeout(function (){
         obj.removeAttr('style');
-        console.log("transitionend fallback");
+        console.log("[Barba] Transitionend fallback");
         p.resolve();
       }, 2000);
 
       // Wait for css transition to finish 
       obj.one('transitionend', function (e) {
         clearTimeout(fallbackTimeout);            
-        console.log("Fade in complete");
+        console.log("[Barba] Fade in complete");
         p.resolve();
       });
 
@@ -12089,7 +12108,7 @@ function barbaStart( $ ) {
     veilOutTransition: function() {
       var p = Barba.Utils.deferred();
       
-      console.log("Veil out");
+      console.log("[Barba] Veil out");
 
       var _this = this;
       var $el = $(this.newContainer);
@@ -12111,7 +12130,7 @@ function barbaStart( $ ) {
       // Fallback in case transitionend is not suported
       var fallbackTimeout = setTimeout(function (){
         obj.removeAttr('style');
-        console.log("transitionend fallback");
+        console.log("[Barba] Transitionend fallback");
         p.resolve();
       }, 2000);
         
@@ -12119,7 +12138,7 @@ function barbaStart( $ ) {
       obj.one('transitionend', function (e) {           
         obj.removeAttr('style');            
         clearTimeout(fallbackTimeout);
-        console.log("Fade out complete");
+        console.log("[Barba] Fade out complete");
         p.resolve();
       });
 
@@ -12174,12 +12193,12 @@ jQuery(document).ready(function( $ ) {
             Barba.Pjax.start();
 
             // Start prefecth 
-            console.log("Barba prefetch init");
+            console.log("[Barba] Prefetch init");
             Barba.Prefetch.init();
          
         }
         catch(err) {
-            console.log("Could not initialize Barba: " + err);
+            console.log("[Barba] Could not be initialized: " + err);
             // Go into fallback functions
             mdb_us4_fallback( $ );
         }
@@ -12190,12 +12209,14 @@ jQuery(document).ready(function( $ ) {
        
     }
 
+
+
 }); // End jQuery
     
 
 // Each time a new page is loaded by PJAX, show a log
 Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {    
-  console.log("New page ready");
+  console.log("[Barba] New page ready");
     var $ = jQuery;
     
     if (mdb_debug) {

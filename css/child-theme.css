@@ -9516,6 +9516,9 @@ h3.responsive-text {
 /******************************************************
  ******************* BIOGRAPHY PAGE *******************
  ******************************************************/
+#page-biography-wrapper {
+  padding: 0; }
+
 /* Biography page wrapper. Creates individual pages */
 .biography-page {
   min-height: 100vh;
@@ -9728,8 +9731,6 @@ body {
 
 .grid-item {
   background-color: whitesmoke; }
-  .grid-item a {
-    mix-blend-mode: multiply; }
 
 .home-page .nav-pills .menu-item-left .nav-link {
   position: relative;

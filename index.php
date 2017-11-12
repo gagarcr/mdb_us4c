@@ -73,7 +73,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 
       <!-- Navbar -->
       <div class="row">
-        <nav class="w-100  navbar sticky-top navbar-expand-md navbar-inverse" id="navbar-selector">
+        <nav class="w-100 navbar sticky-top navbar-expand-md navbar-inverse" id="navbar-selector">
 
           <!-- The WordPress Menu goes here. Only on >sm screen. Add selector for filter js, nav pills make button-like -->
           <ul id="filter-menu" class="navbar-nav nav-fill filter-button-group nav-pills w-100 d-flex justify-content-between "> 

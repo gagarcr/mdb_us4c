@@ -42,7 +42,6 @@ function mdb_us4c_setup() {
         'default-text-color' => 'ffffff',
         'width'         => 1200,
         'height' => 600,
-        
         'flex-width'    => true,
         'flex-height'    => true,
         'default-image' => get_template_directory_uri() . '/images/header.jpg',
@@ -54,8 +53,162 @@ function mdb_us4c_setup() {
     ) );
 }
 
+
+/**
+ * --------------------------------------------------------------------------
+ * THEME Customizer Functions
+ * --------------------------------------------------------------------------
+ */
+
+ function mdb_us4c_customize_register( $wp_customize ) {
+  // Create a theme-specific section
+  $wp_customize->add_section( 'mdb_us4c', array(
+    'title' => __( 'MDB_US4C' ),
+    'description' => __( 'MDB_US4C Personalization'),
+    'panel' => '', // Not typically needed.
+    'priority' => 160,
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+  ) );
+
+  // Header parallax
+  $wp_customize->add_setting( 'setting_header_parallax_id', array(
+    'type' => 'theme_mod', // or 'option'. Theme mod only affects this theme.
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+    'default' => 'true',
+    'transport' => 'postMessage', // refresh or postMessage (no-refresh)
+    'sanitize_callback' => '', // ensure that no unsafe data is stored in the database
+    'sanitize_js_callback' => '', // Basically to_json.
+  ) );
+  $wp_customize->add_control( 'setting_header_parallax_id', array(
+    'type' => 'checkbox', // <input>, checkbox, textarea, radio, select, dropdown-pages
+    'priority' => 10, // Within the section.
+    'section' => 'mdb_us4c', // Required, core or custom.
+    'label' => __( 'Header Parallax' ),
+    'description' => __( 'Parallax header effect enable.' ),
+    'active_callback' => 'is_front_page',
+    //'setting' => 'setting_header_parallax', // Accesible from php get_theme_mod('setting_header_parallax')  If not defined, then the $id as the setting ID is used.
+  ) );
+
+  // Header height
+  $wp_customize->add_setting( 'setting_header_height_id', array(
+    'type' => 'theme_mod', // or 'option'. Theme mod only affects this theme.
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+    'default' => '60',
+    'transport' => 'postMessage', // refresh or postMessage (no-refresh)
+    'sanitize_callback' => 'absint', // ensure that no unsafe data is stored in the database
+    'sanitize_js_callback' => '', // Basically to_json.
+  ) );
+  $wp_customize->add_control( 'setting_header_height_id', array(
+    'type' => 'number', // <input>, checkbox, textarea, radio, select, dropdown-pages
+    'priority' => 10, // Within the section.
+    'section' => 'mdb_us4c', // Required, core or custom.
+    'label' => __( 'Header Height' ),
+    'description' => __( 'Set the header height in % of the view port height' ),
+    'active_callback' => 'is_front_page',
+  ) );
+
+  // Max-width limit
+  $wp_customize->add_setting( 'setting_max_width_enable_id', array(
+    'type' => 'theme_mod', // or 'option'. Theme mod only affects this theme.
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+    'default' => 'true',
+    'transport' => 'postMessage', // refresh or postMessage (no-refresh)
+    'sanitize_callback' => '', // ensure that no unsafe data is stored in the database
+    'sanitize_js_callback' => '', // Basically to_json.
+  ) );
+  $wp_customize->add_control( 'setting_max_width_enable_id', array(
+    'type' => 'checkbox', // <input>, checkbox, textarea, radio, select, dropdown-pages
+    'priority' => 10, // Within the section.
+    'section' => 'mdb_us4c', // Required, core or custom.
+    'label' => __( 'Max width limit enable' ),
+    'description' => __( 'Limit the maximum width of the header and body.' ),
+    'active_callback' => 'is_front_page',
+    //'setting' => 'setting_header_parallax', // Accesible from php get_theme_mod('setting_header_parallax')  If not defined, then the $id as the setting ID is used.
+  ) );
+
+  // Max-width limit
+  $wp_customize->add_setting( 'setting_max_width_id', array(
+    'type' => 'theme_mod', // or 'option'. Theme mod only affects this theme.
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+    'default' => '1440',
+    'transport' => 'postMessage', // refresh or postMessage (no-refresh)
+    'sanitize_callback' => '', // ensure that no unsafe data is stored in the database
+    'sanitize_js_callback' => '', // Basically to_json.
+  ) );
+  $wp_customize->add_control( 'setting_max_width_id', array(
+    'type' => 'number', // <input>, checkbox, textarea, radio, select, dropdown-pages
+    'priority' => 10, // Within the section.
+    'section' => 'mdb_us4c', // Required, core or custom.
+    'label' => __( 'Max width value' ),
+    'description' => __( 'Maximum width in px' ),
+    'active_callback' => 'is_front_page',
+    //'setting' => 'setting_header_parallax', // Accesible from php get_theme_mod('setting_header_parallax')  If not defined, then the $id as the setting ID is used.
+  ) );
+
+  /* Add grid background color */
+  $wp_customize->add_setting( 'setting_grid_background_color_id', array(
+    'type' => 'theme_mod', // or 'option'. Theme mod only affects this theme.
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+    'default' => '#F5F5F5',
+    'transport' => 'postMessage', // refresh or postMessage (no-refresh)
+    'sanitize_callback' => '', // ensure that no unsafe data is stored in the database
+    'sanitize_js_callback' => '', // Basically to_json.
+  ) );
+  $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'setting_grid_background_color_id', array(
+    'label'      => __( 'Project grid background color', 'understrap' ),
+    'section'    => 'colors',
+  ) ) );
+
+  /* Add navbar text color */
+  $wp_customize->add_setting( 'setting_navbar_text_color_id', array(
+    'type' => 'theme_mod', // or 'option'. Theme mod only affects this theme.
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+    'default' => '#8C8C8C',
+    'transport' => 'postMessage', // refresh or postMessage (no-refresh)
+    'sanitize_callback' => '', // ensure that no unsafe data is stored in the database
+    'sanitize_js_callback' => '', // Basically to_json.
+  ) );
+  $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'setting_navbar_text_color_id', array(
+    'label'      => __( 'Navigation bar text color', 'understrap' ),
+    'section'    => 'colors',
+  ) ) );
+}
+
+/**
+ * --------------------------------------------------------------------------
+ * Live preview JS
+ * --------------------------------------------------------------------------
+ */
+function mdb_us4c_customizer_live_preview_js()
+{
+  wp_enqueue_script( 'mdb_us4c-themecustomizer', get_stylesheet_directory_uri() . '/js/mdb_us4_theme-customizer.js',
+      array( 'jquery', 'customize-preview' ), '', true );
+}
+
+
+/**
+ * --------------------------------------------------------------------------
+ * Add actions
+ * --------------------------------------------------------------------------
+ */
 // Call mdb_us4c_setup
 add_action( 'after_setup_theme', 'mdb_us4c_setup' );
+
+// Add customizer options
+add_action('customize_register','mdb_us4c_customize_register');
+
+// Add theme customization output to wp_head
+add_action( 'wp_head', 'mdb_us4c_customize_css');
+
+// Live preview js
+add_action( 'customize_preview_init', 'mdb_us4c_customizer_live_preview_js' );
 
 
 /**
@@ -76,7 +229,7 @@ function mdb_us4c_get_menu( $menu_name ) {
    return false; 
 }
  
- // Modify default [...]
+// Modify default [...]
 function custom_excerpt_more( $more ) {
   return ' [...]';
 }
@@ -86,10 +239,66 @@ function all_excerpts_get_more_link( $post_excerpt ) {
   return $post_excerpt;
 }
 
-?>
+/* Theme customization output */
+function mdb_us4c_customize_css()
+{
+  ?>
+    <style type="text/css">
+      /* Header parallax effect */
+      <?php if (get_theme_mod('setting_header_parallax_id') == false): ?>
+        .home-page .parallax .parallax-fixed 
+        {
+          position: absolute;
+        }
+      <?php endif; ?>
 
-<?php
-// TODO: REMOVE
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+      /* Header height */
+      .home-page .parallax, .home-page .parallax .parallax-fixed 
+      {
+        height: <?php echo get_theme_mod('setting_header_height_id', '60') ?>vh; 
+      }
+
+      /* Max width */
+      .home-page .parallax .parallax-fixed, #wrapper-index .navbar-mobile, .home-page > .container-fluid 
+      {
+        max-width: <?php
+          if (get_theme_mod('setting_max_width_enable_id') == false){
+            echo ('none');
+          }
+          else {
+            echo (get_theme_mod('setting_max_width_id', '1440'));
+            echo ('px');
+          } 
+        ?>;  
+      }
+
+      /* Project grid background color */
+      .home-page .custom-logo-link, .home-page .grid-item, .home-page > .container-fluid 
+      {
+        background-color: <?php echo (get_theme_mod('setting_grid_background_color_id')) ?>;
+      }
+
+      /* Navigation bar text color */
+      .home-page #navbar-selector .nav-link
+      {
+        color: <?php echo (get_theme_mod('setting_navbar_text_color_id')) ?>;
+      }
+
+
+    </style>
+  <?php
+}
+
+
+/**
+ * --------------------------------------------------------------------------
+ * Devug
+ * --------------------------------------------------------------------------
+ */
+
+if (0) {
+  ini_set('display_errors', 'On');
+  error_reporting(E_ALL);
+}
+
 ?>

@@ -24,7 +24,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 	<?php wp_head(); ?>
 </head>
 
-<body id="mdb_us4c-body">
+<body id="mdb_us4c-body" class="custom-background">
 
   <svg class="hideSvgSoThatItSupportsFirefox">
     <filter id="sharpBlur">

@@ -11920,7 +11920,7 @@ function isotopeStart($) {
           gutter: 0,
       }
     }) // End grid.isotope
-
+  
     // Each time a image is loaded, call layout
     grid.imagesLoaded().progress( function() {
       grid.isotope('layout');

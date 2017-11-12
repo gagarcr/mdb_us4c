@@ -48,7 +48,9 @@ html {
 body { 
   position: relative; 
   padding-right:0!important; /* Prevent modal style, we use fixed scrollbars */
+  background-color: $body-bg;  
 }
+
 
 /* Remove any link decoration */
 a {
@@ -192,10 +194,6 @@ h3.responsive-text{
   position: relative;
 } 
 
-/* Increase navbar top distance to match bottoms cards margin */
-.home-page #navbar-selector {
-  padding: 16px 0 0 0;  // Padding-top Same as card margin
-}
 
 .home-page .parallax .parallax-fixed {
   //content: " "; // Not required if not using ::before selector
@@ -229,9 +227,27 @@ h3.responsive-text{
   }
 }
 
+/* CONTAINER */
+
+/* All the non-parallax body */
+.home-page > .container-fluid {
+  position: relative;  // Enable z-index
+  z-index: 1; // Above parallax
+  
+  background-color: $grid-background-color;
+}
+
+
+
 /* NAVIGATION BAR */
+
+/* Increase navbar top distance to match bottoms cards margin */
+.home-page #navbar-selector {
+  padding: 16px 0 0 0;  // Padding-top Same as card margin
+}
+
 /* Fix nav-pills hover color */
-.home-page .nav-pills .nav-link {
+.home-page #navbar-selector .nav-link {
 
   &.active {
     background-color: theme-color('primary');
@@ -247,6 +263,76 @@ h3.responsive-text{
 }
 
 
+// Nav links underlined 
+.home-page #navbar-selector .nav-link{
+  // Reset coordinates
+  position: relative;
+  color: $navbar-text-color;
+
+}
+  
+// Left
+.home-page #navbar-selector .menu-item-left .nav-link{
+  
+  @include media-breakpoint-up(md) {
+    padding-left: 0; // Remove default behavior
+    padding-right: 2em; // 1.5 em for border, 0.5em for separation
+
+    &::after {
+      content: " "; // Make visible
+      position: absolute;
+      bottom: 0; // Bottom
+      left: 0; // Horizontal center absolute positioned element
+      right: 0.5em;
+      border-bottom: solid 2px;      
+    }
+  }
+
+}
+
+// Same for right
+.home-page #navbar-selector .menu-item-right .nav-link{
+
+  @include media-breakpoint-up(md) {
+
+    padding-right: 0; // Remove default behavior
+    padding-left: 2em; // 1.5 em for border, 0.5em for separation
+    
+    &::after {
+      content: " "; // Make visible
+      position: absolute;
+      bottom: 0; // Bottom
+      right: 0; // Horizontal center absolute positioned element
+      left: 0.5em;
+      border-bottom: solid 2px;      
+    }
+  }
+
+}
+
+// Remove nav-pills background
+.home-page #navbar-selector .nav-link.active {
+  background-color:inherit; // Remove black background 
+  color: rgba(0,0,0,0.9);
+
+  &::after {
+   border-color: rgba(0,0,0,0.9);
+  }
+
+  // By default, it goes to back and white text
+  &:hover {
+    //display: none;
+    color: inherit;
+  }
+}
+
+
+/* The parent of img with -mix-blend-mode must have the background color we
+   want to blend */
+.home-page .custom-logo-link {
+  background-color: $grid-background-color;
+}
+
 /* Custom logo width */
 .home-page .custom-logo-link > img {
 	width: 75px;
@@ -259,6 +345,15 @@ h3.responsive-text{
 .home-page .grid {
   /* Enable HW acceleration */
   transform:translate3d(0,0,0);
+}
+
+.home-page .grid-item {
+  background-color: $grid-background-color; // Remove default white
+
+  // Make items white transparent
+  a {
+    //mix-blend-mode: multiply;
+  }
 }
 
 /* Remove card border. '.' = and ) */
@@ -715,38 +810,18 @@ h3.responsive-text{
   
 }
 
+
 /******************************************************
- *******************  DEVELOPMENT  ********************
+ *************  THEME CUSTOMIZER SUPPORT  *************
  ******************************************************/
 
- * {
-	//background-color: rgba(123,120,120,0.2);
-	//border: 1px solid black;
- }
-
-
-body {
-  background-color: $body-background-color;
-  //z-index: -2;
-}
-
-
-/* Make the content (below the header) non-transparent
-   so that it hides the header when scrolling.
-   We create a full width background bellow */
-.home-page #content {
-    //background-color: yellow;
-  }
-  
-
-.home-page .parallax {
-}
-
+/* MAX WIDTH MODIFIER */
+/* Limit parallax to max-width */
 .home-page .parallax .parallax-fixed {
+  //position: absolute; // Parallax effect
   max-width: 1400px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1!important; // just up the background 
 }
 
 /* Limit page title to max-width */
@@ -758,93 +833,14 @@ body {
 
 .home-page > .container-fluid {
   max-width: 1400px;
-  
-  position: relative;
-  z-index: 100;
-
-  background-color: $grid-background-color;
 }
 
 
-/* The parent of img with -mix-blend-mode must have the background color we
-   want to blend */
-.home-page .custom-logo-link {
-  background-color: $grid-background-color;
-}
+/******************************************************
+ *******************  DEVELOPMENT  ********************
+ ******************************************************/
 
-.grid-item {
-  background-color: $grid-background-color;
-
-  a {
-    //mix-blend-mode: multiply;
-  }
-}
-
-
-// Nav links underlined 
-.home-page .nav-pills .menu-item-left .nav-link{
-  // Reset coordinates
-  position: relative;
-
-  color: $navbar-text-color;
-
-
-  @include media-breakpoint-up(md) {
-    padding-left: 0; // Remove default behavior
-    padding-right: 2em; // 1.5 em for border, 0.5em for separation
-
-    &::after {
-      content: " "; // Make visible
-      position: absolute;
-      bottom: 0; // Bottom
-      left: 0; // Horizontal center absolute positioned element
-      right: 0.5em;
-      border-bottom: solid 2px $navbar-text-color;      
-    }
-  }
-
-}
-
-
-// Same for right
-.home-page .nav-pills .menu-item-right .nav-link{
-  // Reset coordinates
-  position: relative;
-
-  color: $navbar-text-color;
-
-  @include media-breakpoint-up(md) {
-
-    padding-right: 0; // Remove default behavior
-    padding-left: 2em; // 1.5 em for border, 0.5em for separation
-    
-    &::after {
-      content: " "; // Make visible
-      position: absolute;
-      bottom: 0; // Bottom
-      right: 0; // Horizontal center absolute positioned element
-      left: 0.5em;
-      border-bottom: solid 2px $navbar-text-color;      
-    }
-  }
-
-}
-
-
-// REmove nav-pills background
-.home-page .nav-pills .nav-link.active {
-  background-color:inherit; // Remove black background 
-  color: rgba(0,0,0,0.9);
-
-  &::after {
-   border-color: rgba(0,0,0,0.9);
-  }
-
-  // By default, it goes to back and white text
-  &:hover {
-    //display: none;
-    color: inherit;
-  }
-}
-
-
+ * {
+	//background-color: rgba(123,120,120,0.2);
+	//border: 1px solid black;
+ }

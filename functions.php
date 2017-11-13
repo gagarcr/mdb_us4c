@@ -40,8 +40,8 @@ function mdb_us4c_setup() {
     // theme support.
     add_theme_support( 'custom-header', array(
         'default-text-color' => 'ffffff',
-        'width'         => 1200,
-        'height' => 600,
+        'width'         => 1440,
+        'height'        => 600,
         'flex-width'    => true,
         'flex-height'    => true,
         'default-image' => get_template_directory_uri() . '/images/header.jpg',
@@ -108,6 +108,46 @@ function mdb_us4c_setup() {
     'label' => __( 'Header Height' ),
     'description' => __( 'Set the header height in % of the view port height' ),
     'active_callback' => 'is_front_page',
+  ) );
+
+  // Max-height limit
+  $wp_customize->add_setting( 'setting_max_height_enable_id', array(
+    'type' => 'theme_mod', // or 'option'. Theme mod only affects this theme.
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+    'default' => 'true',
+    'transport' => 'postMessage', // refresh or postMessage (no-refresh)
+    'sanitize_callback' => '', // ensure that no unsafe data is stored in the database
+    'sanitize_js_callback' => '', // Basically to_json.
+  ) );
+  $wp_customize->add_control( 'setting_max_height_enable_id', array(
+    'type' => 'checkbox', // <input>, checkbox, textarea, radio, select, dropdown-pages
+    'priority' => 10, // Within the section.
+    'section' => 'mdb_us4c', // Required, core or custom.
+    'label' => __( 'Max height limit enable' ),
+    'description' => __( 'Limit the maximum height of the header and body.' ),
+    'active_callback' => 'is_front_page',
+    //'setting' => 'setting_header_parallax', // Accesible from php get_theme_mod('setting_header_parallax')  If not defined, then the $id as the setting ID is used.
+  ) );
+
+  // Max-height limit
+  $wp_customize->add_setting( 'setting_max_height_id', array(
+    'type' => 'theme_mod', // or 'option'. Theme mod only affects this theme.
+    'capability' => 'edit_theme_options',
+    'theme_supports' => '', // Rarely needed.
+    'default' => '600',
+    'transport' => 'postMessage', // refresh or postMessage (no-refresh)
+    'sanitize_callback' => '', // ensure that no unsafe data is stored in the database
+    'sanitize_js_callback' => '', // Basically to_json.
+  ) );
+  $wp_customize->add_control( 'setting_max_height_id', array(
+    'type' => 'number', // <input>, checkbox, textarea, radio, select, dropdown-pages
+    'priority' => 10, // Within the section.
+    'section' => 'mdb_us4c', // Required, core or custom.
+    'label' => __( 'Max height value' ),
+    'description' => __( 'Maximum height in px' ),
+    'active_callback' => 'is_front_page',
+    //'setting' => 'setting_header_parallax', // Accesible from php get_theme_mod('setting_header_parallax')  If not defined, then the $id as the setting ID is used.
   ) );
 
   // Max-width limit
@@ -246,21 +286,31 @@ function mdb_us4c_customize_css()
     <style type="text/css">
       /* Header parallax effect */
       <?php if (get_theme_mod('setting_header_parallax_id') == false): ?>
-        .home-page .parallax .parallax-fixed 
-        {
+        .home-page .parallax .parallax-fixed {
           position: absolute;
         }
       <?php endif; ?>
 
       /* Header height */
-      .home-page .parallax, .home-page .parallax .parallax-fixed 
-      {
+      .home-page .parallax, .home-page .parallax .parallax-fixed {
         height: <?php echo get_theme_mod('setting_header_height_id', '60') ?>vh; 
       }
 
+      /* Max height */
+      .home-page .parallax, .home-page .parallax .parallax-fixed {
+        max-height: <?php
+          if (get_theme_mod('setting_max_height_enable_id') == false){
+            echo ('none');
+          }
+          else {
+            echo (get_theme_mod('setting_max_height_id', '600'));
+            echo ('px');
+          } 
+        ?>;  
+      }
+
       /* Max width */
-      .home-page .parallax .parallax-fixed, #wrapper-index .navbar-mobile, .home-page > .container-fluid 
-      {
+      .home-page .parallax .parallax-fixed, #wrapper-index .navbar-mobile, .home-page > .container-fluid {
         max-width: <?php
           if (get_theme_mod('setting_max_width_enable_id') == false){
             echo ('none');
@@ -273,14 +323,12 @@ function mdb_us4c_customize_css()
       }
 
       /* Project grid background color */
-      .home-page .custom-logo-link, .home-page .grid-item, .home-page > .container-fluid 
-      {
+      .home-page .custom-logo-link, .home-page .grid-item, .home-page > .container-fluid {
         background-color: <?php echo (get_theme_mod('setting_grid_background_color_id')) ?>;
       }
 
       /* Navigation bar text color */
-      .home-page #navbar-selector .nav-link
-      {
+      .home-page #navbar-selector .nav-link {
         color: <?php echo (get_theme_mod('setting_navbar_text_color_id')) ?>;
       }
 

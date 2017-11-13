@@ -29,14 +29,48 @@
     } ); // End wp.customize
 
 
+    // Max height 
+    var max_height = 600;
+    var max_height_enable = true;
+    
+    // Bind enable
+    function updateMaxheight () {
+      var selector = '.home-page .parallax, .home-page .parallax .parallax-fixed';
+      
+      if (max_height_enable)
+      {
+        $(selector).css('max-height', max_height + 'px' );
+      }
+      else {
+        $(selector).css('max-height', 'none' );
+      }
+    }
+
+    wp.customize( 'setting_max_height_enable_id', function( value ) {
+      value.bind( function( newval ) {
+        max_height_enable = newval;
+        updateMaxheight();
+      } ); // End bind
+    } ); // End wp.customize
+    
+    // Bind max-height
+    wp.customize( 'setting_max_height_id', function( value ) {
+      value.bind( function( newval ) {
+        max_height = newval;
+        updateMaxheight();
+      } ); // End bind
+    } ); // End wp.customize
+
+
     // Max width
     var max_width = 1440;
-    var max_enable = true;
-    var selector = '.home-page .parallax .parallax-fixed, #wrapper-index .navbar-mobile, .home-page > .container-fluid';
+    var max_width_enable = true;
     
     // Bind enable
     function updateMaxWidth () {
-      if (max_enable)
+      var selector = '.home-page .parallax .parallax-fixed, #wrapper-index .navbar-mobile, .home-page > .container-fluid';
+      
+      if (max_width_enable)
       {
         $(selector).css('max-width', max_width + 'px' );
       }
@@ -47,12 +81,12 @@
 
     wp.customize( 'setting_max_width_enable_id', function( value ) {
       value.bind( function( newval ) {
-        max_enable = newval;
+        max_width_enable = newval;
         updateMaxWidth();
       } ); // End bind
     } ); // End wp.customize
     
-    // Bind max-widh
+    // Bind max-width
     wp.customize( 'setting_max_width_id', function( value ) {
       value.bind( function( newval ) {
         max_width = newval;
@@ -60,6 +94,7 @@
       } ); // End bind
     } ); // End wp.customize
     
+
     // Grid background color
     wp.customize( 'setting_grid_background_color_id', function( value ) {
       value.bind( function( newval ) {

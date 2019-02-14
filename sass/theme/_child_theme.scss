@@ -34,6 +34,26 @@
   font-weight: bold;
 }
 
+/******************************************************
+ *********************** BLOCKS ***********************
+ ******************************************************/
+
+/* Blocks gallery. Round corners */ 
+.blocks-gallery-item img
+{
+ display:none;
+    border-radius: calc(.25rem - 1px);
+}
+
+/* Blocks gallery. Add spacer before. */
+.project-page .wp-block-gallery
+{
+    // @extend project-page; // Add class in another class
+  min-height: 100vh;
+  padding-bottom: 4em;
+  padding-top: 4em;
+}
+
 
 /******************************************************
  *********************** GLOBAL ***********************
@@ -595,6 +615,7 @@ h3.responsive-text{
 
 
 
+
 /******************************************************
  ******************* BIOGRAPHY PAGE *******************
  ******************************************************/
@@ -670,8 +691,9 @@ h3.responsive-text{
 
 /* Change tooltip width
    WARNIG: Global-scope */
-.tooltip .tooltip-inner {
-  max-width: 300px;
+.tooltip {
+  // max-width: 400px;
+  // padding-bottom: 4em;
 }
 
 

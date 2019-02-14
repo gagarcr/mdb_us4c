@@ -20,9 +20,11 @@ function infiniteScrollStart($) {
     // Infinite-Scroll
     grid = $('.row.grid');
     var iso = grid.data('isotope');
+   
+   console.log("[InfiniteScroll] Initialization start");
 
     if (grid){
-      console.log("[InfiniteScroll] Initialization start");
+      console.log("Grid found");
       
       // Required in case re-initialization.
       if (typeof grid.data('infiniteScroll') !== 'undefined'){
@@ -34,7 +36,7 @@ function infiniteScrollStart($) {
         history: false,
         hideNav: '.pagination',     
         status: '.pagination-load-infinite',
-        path: '.page-item-next a',
+        path: '.page-item a.next',
         append: '.post',
         checkLastPage: true,
         outlayer: iso,
@@ -180,6 +182,7 @@ function barbaStart( $ ) {
       },
       onEnterCompleted: function() {
           // The Transition has just finished.
+          console.log("onEnterCompleted");
           
           // Start infinite scroll. AFTER ISOTOPE AND AFTER DOM COMPLETED
           infiniteScrollStart( $ )
@@ -435,7 +438,10 @@ function mdb_us4_initFunctions( $ ){
   mdb_us4_scrollSmooth( $ );
    
   // Start tooltips
-  $('[data-toggle="tooltip"]').tooltip();    
+  $('[data-toggle="tooltip"]').tooltip(); 
+
+  // Start infinite scroll
+  infiniteScrollStart( $ );
 
 };
 

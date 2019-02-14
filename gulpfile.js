@@ -1,24 +1,3 @@
-// Defining base pathes
-var basePaths = {
-    js: './js/',
-    node: './node_modules/',
-    dev: './src/'
-};
-
-// browser-sync watched files
-// automatically reloads the page when files changed
-var browserSyncWatchFiles = [
-    './css/*.min.css',
-    './js/*.min.js',
-    './*.php'
-];
-// browser-sync options
-// see: https://www.browsersync.io/docs/options/
-var browserSyncOptions = {
-    proxy: "localhost/understrap/",
-    notify: false
-};
-
 // Defining requirements
 var gulp = require( 'gulp' );
 var plumber = require( 'gulp-plumber' );
@@ -166,14 +145,13 @@ gulp.task( 'scripts', function() {
 
         // Adding currently empty javascript file to add on for your own themes´ customizations
         // Please add any customizations to this .js file only!
-        paths.dev + '/js/custom-javascript.js'
-        basePaths.dev + 'js/skip-link-focus-fix.js',
+        paths.dev + '/js/custom-javascript.js',
         
         // Start - MDB_US4 theme stuff
-        basePaths.dev + 'js/barba.js',
-        basePaths.dev + 'js/imagesloaded.pkgd.js',
-        basePaths.dev + 'js/isotope.pkgd.js',
-        basePaths.dev + 'js/infinite-scroll.pkgd.js',
+        paths.dev + '/js/barba.js',
+        paths.dev + '/js/imagesloaded.js',
+        paths.dev + '/js/isotope.pkgd.js',
+        paths.dev + '/js/infinite-scroll.pkgd.js',
         './js/mdb_us4.js',
         
     ];
@@ -239,20 +217,20 @@ gulp.task( 'copy-assets', function() {
 
     
 // Copy Isotope Layout files
-    gulp.src(basePaths.node + 'isotope-layout/dist/*.js')
-        .pipe(gulp.dest(basePaths.dev + '/js'));
+    gulp.src(paths.node + 'isotope-layout/dist/*.js')
+        .pipe(gulp.dest(paths.dev + '/js'));
 
 // Copy imagesLoaded files
-    gulp.src(basePaths.node + 'imagesloaded/imagesloaded.pkgd*.js')
-        .pipe(gulp.dest(basePaths.dev + '/js'));
+    gulp.src(paths.node + 'imagesloaded/imagesloaded.pkgd*.js')
+        .pipe(gulp.dest(paths.dev + '/js'));
 
 // Copy Barba.js files
-    gulp.src(basePaths.node + 'barba.js/dist/*.js')
-        .pipe(gulp.dest(basePaths.dev + '/js'));
+    gulp.src(paths.node + 'barba.js/dist/*.js')
+        .pipe(gulp.dest(paths.dev + '/js'));
 
 // Copy Infinite scroll files
-    gulp.src(basePaths.node + 'infinite-scroll/dist/*.js')
-        .pipe(gulp.dest(basePaths.dev + '/js'));
+    gulp.src(paths.node + 'infinite-scroll/dist/*.js')
+        .pipe(gulp.dest(paths.dev + '/js'));
 
 // Copy Custom theme script not neccesary
   return stream;

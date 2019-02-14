@@ -30,12 +30,12 @@ for ($i=1; $i < 4; $i++) {
 
     if ($flex_order === false): $flex_order = 0; endif;
   
-    $flex_img = wp_get_attachment_image_src(get_field('thumbnail_' . $i . '_image'), 'large');
+    $flex_img = wp_get_attachment_image_src(get_field('thumbnail_' . $i . '_image'), 'medium_large');
 
     if ($flex_img == false) {
       // If no img, and we are in the first one, we also check the thumbnail image
       if ($i == 1) {
-        $flex_img = get_the_post_thumbnail_url( $post->ID, 'large' ); 
+        $flex_img = get_the_post_thumbnail_url( $post->ID, 'medium_large' ); 
         //var_dump($flex_img);  
       }
     }

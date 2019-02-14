@@ -146,7 +146,7 @@
 
       <div class="container">
 
-        <div class="card-columns">
+        <ul class="wp-block-gallery columns-3 is-cropped">
           <?php 
 
           //Get the images ids from the post_metadata
@@ -164,7 +164,7 @@
               $full_image_url= $image['full_image_url']; //Full size image url
               //$full_image_url = acf_photo_gallery_resize_image($full_image_url, 262, 160); //Resized size to 262px width by 160px height image url
               //$thumbnail_image_url= $image['thumbnail_image_url']; //Get the thumbnail size image url 150px by 150px
-              $thumbnail_image_url = wp_get_attachment_image_src($id, 'large');
+              $thumbnail_image_url = wp_get_attachment_image_src($id, [1440, 1440]);
 
               if ($thumbnail_image_url):
                 $thumbnail_image_url = $thumbnail_image_url[0]; // Fist array field is src.
@@ -177,13 +177,15 @@
 
           ?>
         
-            <div class="card mb-4">
-              <img class="card-img" src="<?php echo $thumbnail_image_url; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"></img>
-            </div> <!-- .card -->
+            <li class="blocks-gallery-item">
+              <figure>
+                <img class="card-img" src="<?php echo $thumbnail_image_url; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"></img>
+              </figure>
+            </li> <!-- .card -->
 
           <?php endforeach; endif; ?>		
 
-        </div><!-- .row -->
+        </ul><!-- .row -->
       </div><!-- .container -->
 
     </div> <!-- .project-gallery .container -->

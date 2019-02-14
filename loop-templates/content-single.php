@@ -164,7 +164,7 @@
               $full_image_url= $image['full_image_url']; //Full size image url
               //$full_image_url = acf_photo_gallery_resize_image($full_image_url, 262, 160); //Resized size to 262px width by 160px height image url
               //$thumbnail_image_url= $image['thumbnail_image_url']; //Get the thumbnail size image url 150px by 150px
-              $thumbnail_image_url = wp_get_attachment_image_src($id, [1440, 1440]);
+              $thumbnail_image_url = wp_get_attachment_image_src($id, 'large');
 
               if ($thumbnail_image_url):
                 $thumbnail_image_url = $thumbnail_image_url[0]; // Fist array field is src.

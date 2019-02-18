@@ -78,7 +78,7 @@ gulp.task( 'imagemin-watch', ['imagemin'], function( ) {
 // gulp cssnano
 // Minifies CSS files
 gulp.task( 'cssnano', function() {
-  return gulp.src( paths.css + '/child-theme.css' )
+  return gulp.src( paths.css + '/child-theme.css')
     .pipe( sourcemaps.init( { loadMaps: true } ) )
     .pipe( plumber( {
             errorHandler: function( err ) {
@@ -152,6 +152,8 @@ gulp.task( 'scripts', function() {
         paths.dev + '/js/imagesloaded.js',
         paths.dev + '/js/isotope.pkgd.js',
         paths.dev + '/js/infinite-scroll.pkgd.js',
+        paths.dev + '/js/photoswipe.js',
+        paths.dev + '/js/photoswipe-ui-default.js',
         './js/mdb_us4.js',
         
     ];

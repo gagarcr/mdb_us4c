@@ -7,20 +7,21 @@
  * @package understrap
  */
 
-$the_theme = wp_get_theme();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 $container = get_theme_mod( 'understrap_container_type' );
 ?>
-
-          <?php if (is_home()): get_sidebar( 'footerfull' ); else: ?>
-
-            <div class="cross-arrow">
-              <a href="<?php echo get_home_url(); ?>" aria-label="Close">
-                <img class="img-fluid" alt="x" aria-hidden="true" src="<?php echo  get_stylesheet_directory_uri() . '/fonts/ic_close_white_32px.svg'; ?>"></img>
-                <span class="sr-only">&times;</span>			
-              </a>					
-            </div>
-            
-          <?php endif; ?>      
+<?php if (is_home()): get_template_part( 'sidebar-templates/sidebar', 'footerfull' ); ?>
+  <?php else: ?>
+    <div class="cross-arrow">
+      <a href="<?php echo get_home_url(); ?>" aria-label="Close">
+        <img class="img-fluid" alt="x" aria-hidden="true" src="<?php echo  get_stylesheet_directory_uri() . '/fonts/ic_close_white_32px.svg'; ?>"></img>
+        <span class="sr-only">&times;</span>			
+      </a>					
+    </div>
+  <?php endif; ?>      
 
         </div><!-- #page we need this extra closing tag here -->   
     </div><!-- .barba-container -->

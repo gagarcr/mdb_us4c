@@ -4,6 +4,7 @@
 barbaEnabled = true;
 isotopeEnabled = true;
 infiniteScrollEnabled = true;
+photoSwipeEnable = true;
 mdb_debug = true;
 
 /**
@@ -149,6 +150,67 @@ function isotopeStart($) {
 
 /**
  * --------------------------------------------------------------------------
+ * PhotoSwipe.js
+ * --------------------------------------------------------------------------
+ */
+ 
+//Check for Isotope dependency
+if (typeof PhotoSwipe === 'undefined') {
+    throw new Error('MDB_US4 theme require PhotoSwipe.js');
+}
+
+/* global jQuery, PhotoSwipe, PhotoSwipeUI_Default, console */
+function photoSwipeStart($) {  
+  if (photoSwipeEnable == false)
+    return;
+  
+  console.log("PhotoSwipe Start");
+  
+  // Init empty gallery array
+  var container = [];
+
+  // Loop over gallery items and push it to the array
+  $('#gallery').find('figure').each(function() {
+    var $link = $(this).find('a'),
+      item = {
+        src: $link.data('href'),
+        w: $link.data('width'),
+        h: $link.data('height'),
+        title: $link.data('caption')
+      };
+      
+    if(item.src)
+    {
+      container.push(item);
+    }
+    //console.log(item);
+  });
+
+  // Define click event on gallery item
+  $('#gallery a').click(function(event) {
+  console.log("Click");
+    // Prevent location change
+    event.preventDefault();
+
+    // Define object and gallery options
+    var $pswp = $('.pswp')[0],
+      options = {
+        index: $(this).parents('li').index(),
+        bgOpacity: 0.85,
+        showHideOpacity: true
+      };
+    console.log($(this).parents('li'));
+    console.log(options);
+    
+    // Initialize PhotoSwipe
+    var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
+    gallery.init();
+  });
+
+};
+
+/**
+ * --------------------------------------------------------------------------
  * Barba.js
  * --------------------------------------------------------------------------
  */
@@ -174,11 +236,8 @@ function barbaStart( $ ) {
           
         }
         catch(err) {
-            console.log("[Barba] Could not initilze isotope: " + err);
+            console.log("[Barba] Could not initialize isotope: " + err);
         }
-
-        
-        
       },
       onEnterCompleted: function() {
           // The Transition has just finished.
@@ -187,12 +246,14 @@ function barbaStart( $ ) {
           // Start infinite scroll. AFTER ISOTOPE AND AFTER DOM COMPLETED
           infiniteScrollStart( $ )
   
+
           // Scroll to index
           if (typeof ($scrollHomeValue) !== 'undefined')
           {
               console.log("[Barba] Scroll to previous index: " + $scrollHomeValue);
               window.scrollTo(0, $scrollHomeValue);
           }
+                 
       },
       onLeave: function() {
           // A new Transition toward a new page has just started.
@@ -413,8 +474,8 @@ Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container
     if (mdb_debug) {
       // Gulp does not convert ajax links correctly
       if ((window.location.href.includes("localhost")) || (window.location.origin.includes("192.168.")) ){   
-        $('body a[href*="vccw.dev"]').each(function() {
-          $(this).attr('href', $(this).attr('href').replace('vccw.dev', window.location.origin.replace("http://", "")));        
+        $('body a[href*="one.wordpress.dev"]').each(function() {
+          $(this).attr('href', $(this).attr('href').replace('one.wordpress.dev', window.location.origin.replace("http://", "")));        
         });
       }
     }
@@ -443,6 +504,9 @@ function mdb_us4_initFunctions( $ ){
   // Start infinite scroll
   infiniteScrollStart( $ );
 
+  // Photoswipe
+  photoSwipeStart($);
+
 };
 
 // Fallback function that loads everithing done by Barba.js.
@@ -457,6 +521,7 @@ function mdb_us4_fallback ( $ ) {
   catch(err) {
       console.log("Could not initialize isotope: " + err);
   }
+  
 
   mdb_us4_initFunctions($);
 }; 

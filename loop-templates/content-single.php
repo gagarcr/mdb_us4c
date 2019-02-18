@@ -146,7 +146,7 @@
 
       <div class="container">
 
-        <ul class="wp-block-gallery columns-3 is-cropped">
+        <ul class="card-columns" id="gallery" class="gallery">
           <?php 
 
           //Get the images ids from the post_metadata
@@ -181,10 +181,10 @@
 
           ?>
         
-            <li class="blocks-gallery-item">
+            <li class="card mb-4">
               <figure>
                 <a data-href="<?php echo $thumbnail_image_url; ?>" data-width="<?php echo $thumbnail_image_width; ?>" data-height="<?php echo $thumbnail_image_height; ?>"  data-caption="<em class='text-muted'>© All rights reserved</em>">            
-                <img class="card-img" src="<?php echo $thumbnail_image_url; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"></img>
+                  <img class="card-img" src="<?php echo $thumbnail_image_url; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"></img>
                 </a>              
               </figure>
             </li> <!-- .card -->
